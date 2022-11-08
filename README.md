@@ -1,4 +1,4 @@
-# question-manager
+# question-manager App
 
 ## Project setup
 ```
