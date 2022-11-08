@@ -4,7 +4,7 @@
     src="./assets/img/bootcamp_logo.png"
     class="logo"
   />
-  <h1>Welcome to our Question Manager App</h1>
+  <h1>Welcome to our Question Manager App of Coding Bootcamps Europe</h1>
 </template>
 
 <style>
