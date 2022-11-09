@@ -20,10 +20,8 @@ export default {
   --clr-dark-purple: #4b148a;
   --clr-text: rgba(0, 0, 0, 0.87);
   --clr-surface: #fbfbfb;
-}
-
-html {
   font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
 }
 
 h1,
@@ -32,5 +30,9 @@ h3,
 h4,
 h5 {
   font-family: "Montserrat", sans-serif;
+}
+
+p {
+  margin: 0;
 }
 </style>
