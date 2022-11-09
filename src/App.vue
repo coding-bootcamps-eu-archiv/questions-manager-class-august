@@ -22,6 +22,7 @@ export default {
   --clr-surface: #fbfbfb;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 h1,

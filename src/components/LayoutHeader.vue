@@ -1,6 +1,6 @@
 <template>
-  <div class="header__container">
-    <header class="header">
+  <header>
+    <div class="header__top">
       <!-- <nav>
         <router-link to="/">Home</router-link>
         |
@@ -8,40 +8,53 @@
       </nav> -->
       <h1 class="header__title">Coding Bootcamps Europe</h1>
       <p class="header__title header__title--slogan">Question Manager</p>
-    </header>
-    <svg
-      class="header__triangle"
-      width="100%"
-      height="100%"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-    >
-      <polygon points="0,0 50,100 100,0"></polygon>
-    </svg>
-  </div>
+    </div>
 
-  <router-view />
+    <div class="header__bottom">
+      <svg
+        class="header__triangle"
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <polygon points="0,0 50,100 100,0"></polygon>
+      </svg>
+
+      <svg
+        class="header__triangle--2"
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <polygon points="0,0 50,100 100,0"></polygon>
+      </svg>
+    </div>
+  </header>
 </template>
+
 <script>
 export default {};
 </script>
 
 <style scoped>
-.header__container {
+header {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /*justify-content: center;
   align-items: center;
+  background-color: var(--clr-primary);*/
 }
-.header {
+.header__top {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   background-color: var(--clr-primary);
-  padding: 1rem;
-  margin-bottom: 4rem;
+  padding-top: 1.25rem;
+  margin: 0;
   gap: 1rem;
 }
 
@@ -56,14 +69,19 @@ export default {};
   text-transform: uppercase;
   color: var(--clr-surface);
 }
-
-.header__triangle {
-  min-width: 100%;
+.header__bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   max-height: 15px;
-  fill: var(--clr-primary);
 }
-.header__triangle--light {
-  min-width: 100%;
-  height: 15px;
+.header__triangle {
+  background-color: var(--clr-light);
+  fill: var(--clr-primary);
+  width: 100%;
+}
+.header__triangle--2 {
+  width: 100%;
+  fill: var(--clr-light);
 }
 </style>
