@@ -19,8 +19,6 @@
       <polygon points="0,0 50,100 100,0"></polygon>
     </svg>
   </div>
-
-  <router-view />
 </template>
 <script>
 export default {};
