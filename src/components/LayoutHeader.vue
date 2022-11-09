@@ -42,9 +42,6 @@ export default {};
 header {
   display: flex;
   flex-direction: column;
-  /*justify-content: center;
-  align-items: center;
-  background-color: var(--clr-primary);*/
 }
 .header__top {
   display: flex;
@@ -57,14 +54,12 @@ header {
   margin: 0;
   gap: 1rem;
 }
-
 .header__title {
   text-transform: uppercase;
   margin: 0;
   color: var(--clr-surface);
   font-weight: bold;
 }
-
 .header__title--slogan {
   text-transform: uppercase;
   color: var(--clr-surface);
@@ -73,15 +68,21 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 15px;
+  max-height: 20px;
+  position: relative;
 }
 .header__triangle {
-  background-color: var(--clr-light);
+  position: absolute;
+  background-color: var(--clr-secondary);
   fill: var(--clr-primary);
   width: 100%;
+  height: 15px;
 }
 .header__triangle--2 {
+  position: absolute;
   width: 100%;
-  fill: var(--clr-light);
+  height: 15px;
+  fill: var(--clr-secondary);
+  top: 1rem;
 }
 </style>
