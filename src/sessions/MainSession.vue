@@ -1,11 +1,16 @@
 <template>
   <div class="home">
-    <p>Welcome to Your Vue.js App</p>
+    <Blueprints />
   </div>
 </template>
 
 <script>
+import Blueprints from "@/components/blueprintComponent.vue";
+
 export default {
   name: "HomeView",
+  components: {
+    Blueprints,
+  },
 };
 </script>
