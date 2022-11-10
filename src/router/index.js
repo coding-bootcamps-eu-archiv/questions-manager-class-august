@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ManageSession from "@/pages/ManageSessionPage.vue";
+import CreateSession from "@/pages/CreateSessionPage.vue";
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: "/manage",
     name: "manage",
     component: ManageSession,
+  },
+  {
+    path: "/manage/create",
+    name: "create",
+    component: CreateSession,
   },
 ];
 
