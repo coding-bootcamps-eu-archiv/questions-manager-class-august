@@ -1,28 +1,39 @@
 <template>
-  <img
-    alt="Coding Bootcamps Europe"
-    src="./assets/img/bootcamp_logo.png"
-    class="logo"
-  />
-  <h1>Welcome to our Question Manager App of CBE</h1>
+  <LayoutHeader />
 </template>
 
+<script>
+import LayoutHeader from "./components/LayoutHeader.vue";
+export default {
+  components: {
+    LayoutHeader,
+  },
+};
+</script>
+
 <style>
-html,
-body {
-  height: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Source+Sans+Pro&display=swap");
+:root {
+  --clr-primary-inactive: rgba(106, 28, 195, 0.38);
+  --clr-primary: #6a1cc3;
+  --clr-secondary: #8849cf;
+  --clr-dark-purple: #4b148a;
+  --clr-text: rgba(0, 0, 0, 0.87);
+  --clr-surface: #fbfbfb;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  scroll-behavior: smooth;
 }
 
-#app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 1rem;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Montserrat", sans-serif;
 }
 
-.logo {
-  width: 100%;
+p {
+  margin: 0;
 }
 </style>
