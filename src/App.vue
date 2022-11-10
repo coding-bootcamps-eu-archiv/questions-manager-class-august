@@ -31,9 +31,11 @@ h3,
 h4,
 h5 {
   font-family: "Montserrat", sans-serif;
+  margin: 0;
 }
 
 p {
   margin: 0;
+  padding: 0;
 }
 </style>
