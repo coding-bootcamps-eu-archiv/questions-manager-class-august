@@ -34,8 +34,6 @@
   </header>
 </template>
 
-<router-view />
-
 <script>
 export default {};
 </script>
