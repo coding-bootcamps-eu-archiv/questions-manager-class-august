@@ -9,7 +9,7 @@
         <div class="session__wrapper">
           <h3 class="session__name">
             <router-link
-              :to="{ name: 'currentsession', query: { sessionId: session.id } }"
+              :to="{ name: 'currentsession', params: { id: session.id } }"
             >
               {{ session.title }}
             </router-link>

@@ -20,11 +20,8 @@ const routes = [
     component: Blueprint,
   },
   {
-    path: "/session",
+    path: "/session/:id",
     name: "currentsession",
-    props(route) {
-      return { sessionId: route.query.sessionId };
-    },
     component: CurrentSession,
   },
 ];
