@@ -1,5 +1,6 @@
 <template>
   <LayoutHeader />
+  <router-view />
 </template>
 
 <script>
@@ -22,6 +23,7 @@ export default {
   --clr-surface: #fbfbfb;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -30,9 +32,11 @@ h3,
 h4,
 h5 {
   font-family: "Montserrat", sans-serif;
+  margin: 0;
 }
 
 p {
   margin: 0;
+  padding: 0;
 }
 </style>
