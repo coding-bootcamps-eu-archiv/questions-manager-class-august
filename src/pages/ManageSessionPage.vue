@@ -7,7 +7,13 @@
         :key="session.id"
       >
         <div class="session__wrapper">
-          <h3 class="session__name">{{ session.title }}</h3>
+          <h3 class="session__name">
+            <router-link
+              :to="{ name: 'currentsession', query: { sessionId: session.id } }"
+            >
+              {{ session.title }}
+            </router-link>
+          </h3>
           <p class="session__date">
             {{ dayJS(session.createdAt).fromNow() }}
           </p>
@@ -72,6 +78,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
+
 ul,
 li {
   all: unset;
