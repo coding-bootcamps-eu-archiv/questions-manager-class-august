@@ -64,7 +64,7 @@ export default {
   },
   async created() {
     const response = await fetch(
-      "https://questions-manager-api.jgreg.uber.space/sessions"
+      process.env.VUE_APP_API_BASE_URL + "/sessions"
     );
     this.sessions = await response.json();
   },
