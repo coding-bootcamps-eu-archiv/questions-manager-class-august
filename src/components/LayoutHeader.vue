@@ -42,6 +42,7 @@ export default {};
 header {
   display: flex;
   flex-direction: column;
+  margin-bottom: 4.5rem;
 }
 .header__top {
   display: flex;
