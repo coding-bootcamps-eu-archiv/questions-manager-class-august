@@ -147,11 +147,15 @@ li {
   transform: translateY(5%);
 }
 
+.btn--delete {
+  padding-top: 0.5rem;
+}
+
 .btn--edit:hover {
   color: dodgerblue;
 }
 
 .btn--delete:hover {
-  color: red;
+  color: hotpink;
 }
 </style>
