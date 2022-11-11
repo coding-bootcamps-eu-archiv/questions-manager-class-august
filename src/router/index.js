@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import ManageSession from "@/pages/ManageSessionPage.vue";
 import Blueprint from "@/pages/BlueprintOverviewPage.vue";
 import CurrentSession from "@/pages/CurrentSessionPage.vue";
-
 import CreateSession from "@/pages/CreateSessionPage.vue";
+
 const routes = [
   {
     path: "/",
@@ -32,7 +32,6 @@ const routes = [
     component: CreateSession,
   },
 ];
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
