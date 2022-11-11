@@ -156,7 +156,6 @@ li {
   align-items: center;
   justify-content: flex-start;
   padding: 0.5rem;
-  gap: 0.5rem;
   flex: 0 3 auto;
 }
 .btn {
