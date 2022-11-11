@@ -67,8 +67,8 @@ li {
   color: hotpink;
   background: var(--clr-surface);
   padding: 0.5rem 1.25rem;
-  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
-    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  box-shadow: var(--clr-primary-inactive) 0px 2px 5px 0px,
+    var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
 }
 .questions {
@@ -87,7 +87,9 @@ li {
   display: flex;
   align-items: center;
   width: 100%;
-  border: 2px solid var(--clr-primary);
+  background-color: var(--clr-surface);
+  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
+    var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
 }
 .question__wrapper {
@@ -131,6 +133,7 @@ li {
   position: relative;
   margin-top: -30px;
   margin-right: 25px;
+  filter: drop-shadow(1px 1px 2px var(--clr-text));
 }
 .trigger input[type="checkbox"] {
   display: none;
