@@ -1,10 +1,28 @@
 <template>
   <section class="questions" id="questions">
-    <form
-      @submit.prevent="createNewQuestion()"
-      @keypress.enter.prevent="createNewQuestion()"
-    >
+    <form>
       <div class="form__container">
+        <div class="searchbar">
+          <input
+            class="search__input"
+            type="text"
+            placeholder="Search for a question"
+            v-model="searchQuery"
+          />
+          <button class="magnifying" type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+          </button>
+        </div>
         <input
           class="questions__input"
           type="text"
@@ -12,15 +30,18 @@
           id="question"
           placeholder="Ask your question!"
           v-model="newQuestion"
+          @keypress.enter.prevent="createNewQuestion()"
         />
-        <button class="ask__btn">Ask a Question</button>
+        <button class="ask__btn" @click.prevent="createNewQuestion()">
+          Ask a Question
+        </button>
       </div>
     </form>
 
     <ul class="questions__list" id="questions-list">
       <li
         class="questions_element"
-        v-for="question in questions"
+        v-for="question in searchQuestions"
         :key="question.id"
       >
         <div class="question__wrapper">
@@ -48,7 +69,22 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { questions: [], newQuestion: "" };
+    return {
+      questions: [],
+      newQuestion: "",
+      searchQuery: "",
+    };
+  },
+  computed: {
+    searchQuestions() {
+      if (this.searchQuery.length > 0) {
+        return this.questions.filter((q) =>
+          q.question.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      } else {
+        return this.questions;
+      }
+    },
   },
 
   methods: {
@@ -199,11 +235,54 @@ li {
 }
 .form__container {
   display: flex;
+  flex-wrap: wrap;
   margin: auto;
   width: 100%;
   gap: 1rem;
 }
 
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
+    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  background: var(--clr-surface);
+  gap: 1.25rem;
+  border-radius: 2px;
+  flex: 1 1 100%;
+  margin-bottom: 3rem;
+}
+
+.search__input {
+  all: unset;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-primary);
+
+  width: 100%;
+}
+
+.searchbar:focus-within {
+  appearance: none;
+  border: 1px solid hotpink;
+}
+.searchtext:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.magnifying {
+  all: unset;
+  fill: var(--clr-primary);
+}
 .questions__input {
   all: unset;
   text-align: center;
@@ -216,9 +295,10 @@ li {
   box-shadow: var(--clr-primary) 0px 2px 5px 0px,
     var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
-  flex-grow: 2;
+  flex: 1 0 auto;
 }
 
+.search__input::placeholder,
 .questions__input::placeholder {
   color: var(--clr-primary-inactive);
 }
@@ -239,6 +319,7 @@ li {
   padding: 0.5rem 1.25rem;
   box-shadow: 3.5px 3.5px 0px var(--clr-primary);
   border-radius: 2px;
+  flex: 0 1 auto;
 }
 .ask__btn:active {
   outline: none;
