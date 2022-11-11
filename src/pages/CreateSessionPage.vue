@@ -49,12 +49,10 @@ export default {
         }
       );
       this.newSession = await response.json();
-
-      /* das funktioniert noch nicht
-      await this.$router.push({
-        name: "currentsession",
-        params: { id: this.newSession.Id },
-      });*/
+      this.$router.push({
+        name: "home",
+        params: { id: this.newSession.id },
+      });
     },
   },
 };
