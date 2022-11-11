@@ -36,7 +36,10 @@
               />
             </svg>
           </button>
-          <button class="btn btn--delete">
+          <button
+            @click="ConfirmDeleteSession(session)"
+            class="btn btn--delete"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -60,7 +63,9 @@
     <!-- will be removed after handling all related issues -->
     <pre>{{ sessions }}</pre>
     <nav>
-      <router-link :to="{ name: 'create' }">Create Session</router-link>
+      <button>
+        <router-link :to="{ name: 'create' }">Create Session</router-link>
+      </button>
     </nav>
   </section>
 </template>
@@ -76,6 +81,24 @@ export default {
       process.env.VUE_APP_API_BASE_URL + "/sessions"
     );
     this.sessions = await response.json();
+  },
+  methods: {
+    ConfirmDeleteSession(currentSession) {
+      const deleteMsg = `Do you really want to delete the session with all questions?
+      ${currentSession.title}`;
+      if (confirm(deleteMsg)) {
+        this.DeleteSession(currentSession);
+      }
+    },
+    async DeleteSession(currentSession) {
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/sessions/" + currentSession.id,
+        {
+          method: "DELETE",
+        }
+      );
+      return response;
+    },
   },
 };
 </script>
