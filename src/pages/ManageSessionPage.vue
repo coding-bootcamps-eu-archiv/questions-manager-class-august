@@ -19,7 +19,6 @@
           </p>
         </div>
         <div class="btn__wrapper">
-          <button class="btn btn--detail">Details</button>
           <button class="btn btn--edit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +134,7 @@ li {
   padding: 0.5rem;
   border: 1px solid var(--clr-primary);
   cursor: pointer;
-  flex-grow: 100;
+  flex: 3 0 auto;
 }
 .session__name {
   font-size: 1rem;
@@ -158,20 +157,10 @@ li {
   justify-content: flex-start;
   padding: 0.5rem;
   gap: 0.5rem;
-  flex-grow: 1;
+  flex: 0 3 auto;
 }
 .btn {
   all: unset;
-}
-
-.btn--detail {
-  padding: 0.5rem;
-  cursor: pointer;
-  color: var(--clr-text);
-}
-.btn--detail:hover {
-  color: var(--clr-primary);
-  border-bottom: 1px solid var(--clr-primary);
 }
 
 .btn--delete,
