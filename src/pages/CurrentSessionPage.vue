@@ -1,5 +1,22 @@
 <template>
   <section class="questions" id="questions">
+    <form
+      @submit.prevent="createNewQuestion()"
+      @keypress.enter.prevent="createNewQuestion()"
+    >
+      <div class="form__container">
+        <input
+          class="questions__input"
+          type="text"
+          name="question"
+          id="question"
+          placeholder="Ask your question!"
+          v-model="newQuestion"
+        />
+        <button class="ask__btn">Ask a Question</button>
+      </div>
+    </form>
+
     <ul class="questions__list" id="questions-list">
       <li
         class="questions_element"
@@ -22,10 +39,6 @@
       </li>
     </ul>
 
-    <h3 class="session__url">
-      Link: <ins>{{ currentUrl }}</ins>
-    </h3>
-
     <!-- will be removed after handling all related issues -->
     <pre>{{ questions }}</pre>
   </section>
@@ -35,22 +48,42 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { questions: [] };
+    return { questions: [], newQuestion: "" };
   },
-  computed: {
-    currentUrl() {
-      return window.location.href;
+
+  methods: {
+    async createNewQuestion() {
+      if (this.newQuestion.length > 4) {
+        const body = {
+          sessionId: this.$route.params.id,
+          question: this.newQuestion,
+        };
+
+        await fetch(process.env.VUE_APP_API_BASE_URL + "/questions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+
+        this.newQuestion = "";
+      }
     },
   },
+
   async created() {
-    //will be replaced with streaming function of api in a later issue (see api docs)
-    const response = await fetch(
-      process.env.VUE_APP_API_BASE_URL +
-        "/questions?sessionId=" +
-        this.$route.params.id
+    const evtSource = new EventSource(
+      process.env.VUE_APP_API_BASE_URL + "/stream/" + this.$route.params.id
     );
 
-    this.questions = await response.json();
+    evtSource.addEventListener(
+      "message",
+      (event) => {
+        this.questions = JSON.parse(event.data);
+      },
+      false
+    );
   },
 };
 </script>
@@ -60,27 +93,19 @@ ul,
 li {
   all: unset;
 }
-.session__url {
-  all: unset;
-  font-size: 16px;
-  font-weight: 500;
-  color: hotpink;
-  background: var(--clr-surface);
-  padding: 0.5rem 1.25rem;
-  box-shadow: var(--clr-primary-inactive) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
-  border-radius: 2px;
-}
+
 .questions {
   display: flex;
   margin: auto;
   max-width: 700px;
   flex-direction: column;
-  gap: 1.5rem;
+  padding: 0.75rem;
+  gap: 4rem;
 }
 .questions__list {
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
 }
 
 .questions_element {
@@ -140,7 +165,7 @@ li {
 }
 .trigger input[type="checkbox"] + .like:before,
 .trigger input[type="checkbox"] + .like:after {
-  background: red;
+  background: salmon;
   border-radius: 12px 12px 0 0;
   content: "";
   height: 40px;
@@ -159,7 +184,7 @@ li {
 }
 .trigger input[type="checkbox"]:checked + .like:before,
 .trigger input[type="checkbox"]:checked + .like:after {
-  background: #06723e;
+  background: #149456;
   border-radius: 6px 6px 0 0;
   width: 12px;
 }
@@ -171,5 +196,54 @@ li {
 .trigger input[type="checkbox"]:checked + .like:after {
   left: 20px;
   top: 20px;
+}
+.form__container {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  gap: 1rem;
+}
+
+.questions__input {
+  all: unset;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  background: var(--clr-surface);
+
+  padding: 0.5rem 1.25rem;
+  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
+    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  border-radius: 2px;
+  flex-grow: 2;
+}
+
+.questions__input::placeholder {
+  color: var(--clr-primary-inactive);
+}
+
+.questions__input:focus {
+  appearance: none;
+  border: 1px solid hotpink;
+}
+.ask__btn {
+  all: unset;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-surface);
+  background: var(--clr-secondary);
+
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  box-shadow: 3.5px 3.5px 0px var(--clr-primary);
+  border-radius: 2px;
+}
+.ask__btn:active {
+  outline: none;
+  box-shadow: none;
+  color: var(--clr-primary);
+  background: var(--clr-surface);
 }
 </style>
