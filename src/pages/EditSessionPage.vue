@@ -11,7 +11,9 @@
             {{ dayJS(question.createdAt).fromNow() }}
           </p>
 
-          <p class="question__name">{{ question.question }}</p>
+          <p class="question__name">
+            {{ question.question }}
+          </p>
         </div>
 
         <div class="wrapper wrapper--modifier">
@@ -75,7 +77,9 @@ export default {
   },
   computed: {
     currentUrl() {
-      return window.location.href;
+      let sessionUrl = window.location.href;
+      sessionUrl = sessionUrl.split("edit/").join("");
+      return sessionUrl;
     },
   },
   async created() {
@@ -95,12 +99,15 @@ export default {
 ul,
 li {
   all: unset;
+  margin: 0;
+  padding: 0;
 }
 .session__url {
   all: unset;
   font-size: 16px;
   font-weight: 500;
   color: hotpink;
+  text-align: center;
   background: var(--clr-surface);
   padding: 0.5rem 1.25rem;
   box-shadow: var(--clr-primary-inactive) 0px 2px 5px 0px,
@@ -122,25 +129,26 @@ li {
 
 .questions_element {
   display: flex;
-  align-items: center;
-  width: 100%;
   background-color: var(--clr-surface);
   box-shadow: var(--clr-primary) 0px 2px 5px 0px,
     var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
 }
 .wrapper {
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem 2.5rem 4rem 0.75rem;
+  padding: 1rem 2.5rem 4rem 0.75rem;
   gap: 2.5rem;
   width: 100%;
 }
 
 .wrapper--modifier {
   align-items: flex-end;
-  padding: 0.5rem 0.75rem 4rem 2.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 4rem;
+  width: 15%;
 }
 .question__name {
   font-size: 1.25rem;
@@ -162,11 +170,8 @@ li {
 }
 .btn__wrapper {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.5rem;
+
   gap: 0.5rem;
-  flex-grow: 1;
 }
 .btn {
   all: unset;
@@ -174,7 +179,6 @@ li {
 
 .btn--delete {
   color: var(--clr-primary);
-  padding-top: 0.5rem;
 }
 
 .btn--delete:hover {
@@ -183,9 +187,7 @@ li {
 input[type="checkbox"] {
   visibility: hidden;
 }
-.open__label {
-  transform: translateY(2px);
-}
+
 input[type="checkbox"] + .open__label {
   display: inline-block;
   vertical-align: middle;
