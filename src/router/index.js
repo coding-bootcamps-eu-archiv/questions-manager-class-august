@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import ManageSession from "@/pages/ManageSessionPage.vue";
 import Blueprint from "@/pages/BlueprintOverviewPage.vue";
 import CreateSession from "@/pages/CreateSessionPage.vue";
+import CurrentSession from "@/pages/CurrentSessionPage.vue";
 
 const routes = [
   {
@@ -23,6 +24,14 @@ const routes = [
     path: "/blueprint",
     name: "blueprint",
     component: Blueprint,
+  },
+  {
+    path: "/session",
+    name: "currentsession",
+    props(route) {
+      return { sessionId: route.query.sessionId };
+    },
+    component: CurrentSession,
   },
 ];
 
