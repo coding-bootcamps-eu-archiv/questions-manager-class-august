@@ -17,13 +17,14 @@
           placeholder="Description of your new session"
         />
         <button
-          @click="AddSessionData(this.title, this.description)"
+          @click.prevent="AddSessionData(this.title, this.description)"
           class="sessions__add-button"
         >
           Add Session
         </button>
       </div>
     </form>
+    {{ newSession }}
   </section>
 </template>
 
@@ -33,18 +34,27 @@ export default {
     return {
       title: "",
       description: "",
+      newSession: {},
     };
   },
   methods: {
     async AddSessionData(title, description) {
-      const newSession = { title, description };
-      const response = await fetch("http://localhost:3030/sessions", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(newSession),
-      });
-      const result = await response.json();
-      console.log(result);
+      this.newSession = { title, description };
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/sessions",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(this.newSession),
+        }
+      );
+      this.newSession = await response.json();
+
+      /* das funktioniert noch nicht
+      await this.$router.push({
+        name: "currentsession",
+        params: { id: this.newSession.Id },
+      });*/
     },
   },
 };
