@@ -14,6 +14,7 @@
         </div>
         <div class="like__btn">
           <label class="trigger">
+            <p class="question__counter">{{ question.likes }}</p>
             <input type="checkbox" />
             <div class="like"></div>
           </label>
@@ -107,22 +108,22 @@ li {
   font-weight: normal;
   color: var(--clr-primary-inactive);
 }
-
-.open {
-  font-size: 1.5rem;
+.question__counter {
+  display: flex;
+  font-size: 1rem;
+  margin-top: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
   color: var(--clr-primary-inactive);
 }
-.answered {
-  font-size: 1.5rem;
-  color: salmon;
-}
+
 .like__btn {
   display: flex;
 }
 .trigger {
   position: relative;
-  margin-top: -30px;
-  margin-right: 60px;
+  margin-top: -20px;
+  margin-right: 55px;
 }
 .trigger input[type="checkbox"] {
   display: none;
