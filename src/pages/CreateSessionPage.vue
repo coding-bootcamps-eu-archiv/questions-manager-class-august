@@ -1,25 +1,30 @@
 <template>
-  <form>
-    <div class="input-session">
-      <label class="input-session_title" for="titleSession">Title</label>
-      <input
-        type="text"
-        id="titleSession"
-        v-model="title"
-        placeholder="Title of your new session"
-      />
-    </div>
-    <label class="input_session_description" for="descriptionSession"
-      >Description</label
-    >
-    <input
-      type="text"
-      id="descriptionSession"
-      v-model="description"
-      placeholder="Description of your new session"
-    />
-    <button>Add Session</button>
-  </form>
+  <section class="sessions">
+    <form class="sessions__inputform">
+      <div class="sessions__input-wrapper">
+        <label for="titleSession">Title</label>
+        <input
+          type="text"
+          id="titleSession"
+          v-model="title"
+          placeholder="Title of your new session"
+        />
+        <label for="descriptionSession">Description</label>
+        <input
+          type="text"
+          id="descriptionSession"
+          v-model="description"
+          placeholder="Description of your new session"
+        />
+        <button
+          @click="AddSessionData(this.title, this.description)"
+          class="sessions__add-button"
+        >
+          Add Session
+        </button>
+      </div>
+    </form>
+  </section>
 </template>
 
 <script>
@@ -30,44 +35,49 @@ export default {
       description: "",
     };
   },
+  methods: {
+    async AddSessionData(title, description) {
+      const newSession = { title, description };
+      const response = await fetch("http://localhost:3030/sessions", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(newSession),
+      });
+      const result = await response.json();
+      console.log(result);
+    },
+  },
 };
 </script>
 
 <style scoped>
-.input-session {
+.sessions {
+  margin: auto;
+  max-width: 100ch;
+}
+.sessions__inputform {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.sessions__add-button {
+  grid-area: button;
+}
+
+.sessions__input-wrapper {
+  display: grid;
+  grid-template-columns: fit-content(100px) 1fr;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  grid-template-areas:
+    "title title-text"
+    "description description-text"
+    "button button";
   align-items: center;
-  border-radius: 2px;
-  padding: 0.5rem 1.25rem;
-  width: 300px;
-  gap: 2.5px;
-}
-input[type="text"] {
-  all: unset;
-  font-size: 16px;
-  font-weight: 500;
-  width: 100%;
-  height: 100%;
-  border: 2px solid var(--clr-primary);
-  fill: var(--clr-surface);
-  color: var(--clr-text);
-}
-input[type="text"]::placeholder {
-  color: var(--clr-primary-inactive);
-}
-.input-session:focus-within {
-  outline: none;
-  border: 2px solid var(--clr-secondary);
-}
-.searchtext:not(:focus):not(:active) {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+  padding: 0.5rem;
+  border: 1px solid var(--clr-primary);
+  cursor: pointer;
+  flex-grow: 100;
 }
 </style>
