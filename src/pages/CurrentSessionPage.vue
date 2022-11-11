@@ -14,11 +14,11 @@
         </div>
         <div class="like__btn">
           <label class="trigger">
-            <p class="question__counter">{{ question.likes }}</p>
             <input type="checkbox" />
             <div class="like"></div>
           </label>
         </div>
+        <p class="question__counter">{{ question.likes }} Likes</p>
       </li>
     </ul>
 
@@ -110,20 +110,27 @@ li {
 }
 .question__counter {
   display: flex;
-  font-size: 1rem;
-  margin-top: 50px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: bold;
+  align-self: flex-end;
+  white-space: nowrap;
+  bottom: 0.2rem;
+  right: 0.3rem;
+  position: relative;
+  font-size: 0.85rem;
+  font-weight: normal;
   color: var(--clr-primary-inactive);
+  font-family: "Montserrat", sans-serif;
 }
 
 .like__btn {
   display: flex;
+  flex-direction: column;
 }
 .trigger {
+  display: flex;
+  align-self: baseline;
   position: relative;
-  margin-top: -20px;
-  margin-right: 55px;
+  margin-top: -30px;
+  margin-right: 25px;
 }
 .trigger input[type="checkbox"] {
   display: none;
