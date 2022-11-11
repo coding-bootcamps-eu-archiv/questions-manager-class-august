@@ -3,7 +3,6 @@ import ManageSession from "@/pages/ManageSessionPage.vue";
 import Blueprint from "@/pages/BlueprintOverviewPage.vue";
 import CreateSession from "@/pages/CreateSessionPage.vue";
 import CurrentSession from "@/pages/CurrentSessionPage.vue";
-import CreateSession from "@/pages/CreateSessionPage.vue";
 
 const routes = [
   {

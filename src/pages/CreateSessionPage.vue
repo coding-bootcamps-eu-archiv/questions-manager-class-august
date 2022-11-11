@@ -1,4 +1,10 @@
 <template>
+    <p>Hallo</p>
+</template>
+
+<script>
+export default {};
+</script>
   <section class="sessions">
     <form class="sessions__inputform">
       <div class="sessions__input-wrapper">
