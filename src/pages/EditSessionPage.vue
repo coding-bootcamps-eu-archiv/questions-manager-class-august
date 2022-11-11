@@ -1,9 +1,10 @@
 <template>
   <section class="questions" id="questions">
     <ul class="questions__list" id="questions-list">
+      <h3 class="header__open">Open:</h3>
       <li
         class="questions_element"
-        v-for="question in questions"
+        v-for="question in filterOpen"
         :key="question.id"
       >
         <div class="wrapper">
@@ -19,8 +20,14 @@
         <div class="wrapper wrapper--modifier">
           <p class="question__counter">{{ question.likes }} Likes</p>
           <div class="btn__wrapper">
-            <input type="checkbox" class="open" id="open" />
-            <label for="open" class="open__label"
+            <input
+              type="checkbox"
+              @change="onCheckChangeState"
+              class="open"
+              :id="question.id"
+              :checked="question.done"
+            />
+            <label :for="question.id" class="open__label"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
@@ -59,7 +66,71 @@
         </div>
       </li>
     </ul>
+    <ul class="questions__list" id="questions-list">
+      <h3 class="header__answered">Answered:</h3>
+      <li
+        class="questions_element"
+        v-for="question in filterAnswered"
+        :key="question.id"
+      >
+        <div class="wrapper">
+          <p class="question__date">
+            {{ dayJS(question.createdAt).fromNow() }}
+          </p>
 
+          <p class="question__name">
+            {{ question.question }}
+          </p>
+        </div>
+
+        <div class="wrapper wrapper--modifier">
+          <p class="question__counter">{{ question.likes }} Likes</p>
+          <div class="btn__wrapper">
+            <input
+              type="checkbox"
+              class="open"
+              :id="question.id"
+              :checked="question.open"
+            />
+            <label :for="question.id" class="open__label"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="26"
+                height="26"
+                fill="currentColor"
+                class="bi bi-check"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"
+                />
+              </svg>
+            </label>
+            <!-- have to make my own function -->
+            <button
+              @click="ConfirmDeleteSession(session)"
+              class="btn btn--delete"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
     <h3 class="session__url">
       Link: <ins>{{ currentUrl }}</ins>
     </h3>
@@ -73,13 +144,28 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { questions: [] };
+    return { questions: [], search: "" };
   },
   computed: {
     currentUrl() {
       let sessionUrl = window.location.href;
       sessionUrl = sessionUrl.split("edit/").join("");
       return sessionUrl;
+    },
+    filterAnswered() {
+      return this.questions.filter((question) => question.open === false);
+    },
+    filterOpen() {
+      return this.questions.filter((question) => question.open === true);
+    },
+  },
+  methods: {
+    onCheckChangeState(event) {
+      this.questions.forEach((question) => {
+        if (question.id === event.target.id) {
+          question.open = !question.open;
+        }
+      });
     },
   },
   async created() {
@@ -113,6 +199,14 @@ li {
   box-shadow: var(--clr-primary-inactive) 0px 2px 5px 0px,
     var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
+}
+.header__open {
+  color: rgb(94, 189, 94);
+  padding-bottom: 0.5rem;
+}
+.header__answered {
+  color: salmon;
+  padding-bottom: 0.5rem;
 }
 .questions {
   padding: 0.75rem;
@@ -191,9 +285,9 @@ input[type="checkbox"] {
 input[type="checkbox"] + .open__label {
   display: inline-block;
   vertical-align: middle;
-  color: salmon;
+  color: rgb(94, 189, 94);
 }
 input[type="checkbox"]:checked + .open__label {
-  color: green;
+  color: salmon;
 }
 </style>
