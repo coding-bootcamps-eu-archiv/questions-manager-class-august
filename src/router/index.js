@@ -30,11 +30,6 @@ const routes = [
     name: "currentsession",
     component: CurrentSession,
   },
-  {
-    path: "/manage/create",
-    name: "create",
-    component: CreateSession,
-  },
 ];
 
 const router = createRouter({
