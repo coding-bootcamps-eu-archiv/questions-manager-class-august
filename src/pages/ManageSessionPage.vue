@@ -59,6 +59,9 @@
 
     <!-- will be removed after handling all related issues -->
     <pre>{{ sessions }}</pre>
+    <nav>
+      <router-link :to="{ name: 'create' }">Create Session</router-link>
+    </nav>
   </section>
 </template>
 
