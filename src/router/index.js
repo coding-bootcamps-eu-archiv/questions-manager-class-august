@@ -3,6 +3,7 @@ import ManageSession from "@/pages/ManageSessionPage.vue";
 import Blueprint from "@/pages/BlueprintOverviewPage.vue";
 import CurrentSession from "@/pages/CurrentSessionPage.vue";
 import CreateSession from "@/pages/CreateSessionPage.vue";
+import EditSession from "@/pages/EditSessionPage.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/manage/create",
     name: "create",
     component: CreateSession,
+  },
+  {
+    path: "/session/edit/:id",
+    name: "edit",
+    component: EditSession,
   },
 ];
 const router = createRouter({
