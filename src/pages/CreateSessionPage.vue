@@ -71,6 +71,25 @@ export default {
 
 .sessions__add-button {
   grid-area: button;
+  border: 1.75px solid var(--clr-primary);
+  border-radius: 2px;
+  background-color: var(--clr-surface);
+  box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
+  padding: 8px 20px;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--clr-primary);
+  margin-top: 1rem;
+}
+
+.sessions__add-button:hover {
+  background: var(--clr-primary);
+  color: var(--clr-surface);
+  border-radius: 2px;
 }
 
 .sessions__input-wrapper {
@@ -83,9 +102,33 @@ export default {
     "description description-text"
     "button button";
   align-items: center;
-  padding: 0.5rem;
-  border: 1px solid var(--clr-primary);
+  padding: 3rem;
+  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
+    var(--clr-primary-inactive) 0px 1px 1px 0px;
   cursor: pointer;
   flex-grow: 100;
+}
+
+input {
+  padding: 1rem;
+  background: var(--clr-surface);
+  border: 1.75px solid var(--clr-primary-inactive);
+}
+
+input:focus-within {
+  outline: none;
+  border: 1px solid var(--clr-primary);
+}
+
+::placeholder {
+  font-family: "Source Sans Pro";
+  font-size: 1rem;
+  color: var(--clr-primary-inactive);
+}
+
+label {
+  font-family: "Source Sans Pro";
+  font-size: 1rem;
+  font-weight: 600;
 }
 </style>
