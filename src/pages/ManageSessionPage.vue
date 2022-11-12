@@ -68,9 +68,9 @@
     <!-- will be removed after handling all related issues -->
     <pre>{{ sessions }}</pre>
     <nav>
-      <button class="btn--createSession">
-        <router-link :to="{ name: 'create' }">Create Session</router-link>
-      </button>
+      <router-link class="router-link" :to="{ name: 'create' }">
+        <button class="btn--createSession">Create Session</button>
+      </router-link>
     </nav>
   </section>
 </template>
@@ -231,25 +231,38 @@ li {
   color: hotpink;
 }
 .btn--createSession {
-  border: 1.75px solid var(--clr-primary);
+  all: unset;
   border-radius: 2px;
+  color: var(--clr-primary);
   background-color: var(--clr-surface);
+  border: 1.75px solid var(--clr-primary);
   box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
-  padding: 8px 20px;
-  font-family: "Source Sans Pro";
+  padding: 0.5rem 1.25rem;
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 20px;
-  text-align: center;
-  color: var(--clr-primary);
-  margin-bottom: 1rem;
+  font-size: 16px;
+  margin: 1rem 40%;
+}
+.router-link {
+}
+.router-link:active,
+.router-link:hover {
+  color: var(--clr-surface);
 }
 .btn--createSession:hover {
   background: var(--clr-primary);
   border-radius: 2px;
-  color: var(
-    --clr-surface
-  ); /* WIP: text should be changed to white when it's hovered*/
+  color: var(--clr-surface);
+}
+.btn--createSession:active {
+  outline: none;
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-surface);
+  background: var(--clr-primary);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
 }
 </style>
