@@ -1,6 +1,11 @@
 <template>
   <section class="questions" id="questions">
-    <SubHeader :subheader="headline" />
+    <SubHeader
+      :subheader="headline"
+      :title="sessionTitle"
+      :description="sessionDesc"
+      :date="sessionDateFormat"
+    />
     <ul class="questions__list" id="questions-list">
       <h3 class="header__open">Open:</h3>
       <li
@@ -151,9 +156,13 @@ export default {
   inject: ["dayJS"],
   data() {
     return {
+      data: [],
       questions: [],
       search: "",
       headline: "Current Session → Coaches",
+      sessionTitle: "",
+      sessionDesc: "",
+      sessionDate: "",
     };
   },
   computed: {
@@ -167,6 +176,9 @@ export default {
     },
     filterOpen() {
       return this.questions.filter((question) => question.open === true);
+    },
+    sessionDateFormat() {
+      return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
     },
   },
   methods: {
@@ -201,11 +213,16 @@ export default {
     //will be replaced with streaming function of api in a later issue (see api docs)
     const response = await fetch(
       process.env.VUE_APP_API_BASE_URL +
-        "/questions?sessionId=" +
-        this.$route.params.id
+        "/sessions/" +
+        this.$route.params.id +
+        "?_embed=questions"
     );
 
-    this.questions = await response.json();
+    this.data = await response.json();
+    this.questions = this.data.questions;
+    this.sessionTitle = this.data.title;
+    this.sessionDesc = this.data.description;
+    this.sessionDate = this.data.date;
   },
 };
 </script>
