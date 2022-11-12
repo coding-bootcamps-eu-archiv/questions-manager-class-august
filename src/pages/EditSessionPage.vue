@@ -25,7 +25,7 @@
               @change="onCheckChangeState"
               class="open"
               :id="question.id"
-              :checked="question.done"
+              :checked="!question.open"
             />
             <label :for="question.id" class="open__label"
               ><svg
@@ -90,9 +90,10 @@
           <div class="btn__wrapper">
             <input
               type="checkbox"
+              @change="onCheckChangeState"
               class="open"
               :id="question.id"
-              :checked="question.open"
+              :checked="!question.open"
             />
             <label :for="question.id" class="open__label"
               ><svg
