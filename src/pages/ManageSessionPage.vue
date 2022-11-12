@@ -243,8 +243,7 @@ li {
   font-size: 16px;
   margin: 1rem 40%;
 }
-.router-link {
-}
+
 .router-link:active,
 .router-link:hover {
   color: var(--clr-surface);
