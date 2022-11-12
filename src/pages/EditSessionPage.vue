@@ -25,7 +25,7 @@
               @change="onCheckChangeState"
               class="open"
               :id="question.id"
-              :checked="question.done"
+              :checked="!question.open"
             />
             <label :for="question.id" class="open__label"
               ><svg
@@ -90,9 +90,10 @@
           <div class="btn__wrapper">
             <input
               type="checkbox"
+              @change="onCheckChangeState"
               class="open"
               :id="question.id"
-              :checked="question.open"
+              :checked="!question.open"
             />
             <label :for="question.id" class="open__label"
               ><svg
@@ -164,10 +165,22 @@ export default {
     },
   },
   methods: {
+    async updateStatusQuestion(question) {
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/questions/" + question.id,
+        {
+          method: "PUT",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(question),
+        }
+      );
+      return response.JSON();
+    },
     onCheckChangeState(event) {
       this.questions.forEach((question) => {
         if (question.id === event.target.id) {
           question.open = !question.open;
+          this.updateStatusQuestion(question);
         }
       });
     },
