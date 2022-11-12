@@ -65,7 +65,7 @@
     <!-- will be removed after handling all related issues -->
     <pre>{{ sessions }}</pre>
     <nav>
-      <button>
+      <button class="btn--createSession">
         <router-link :to="{ name: 'create' }">Create Session</router-link>
       </button>
     </nav>
@@ -184,5 +184,27 @@ li {
 
 .btn--delete:hover {
   color: hotpink;
+}
+.btn--createSession {
+  border: 1.75px solid var(--clr-primary);
+  border-radius: 2px;
+  background-color: var(--clr-surface);
+  box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
+  padding: 8px 20px;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--clr-primary);
+  margin-bottom: 1rem;
+}
+.btn--createSession:hover {
+  background: var(--clr-primary);
+  border-radius: 2px;
+  color: var(
+    --clr-surface
+  ); /* WIP: text should be changed to white when it's hovered*/
 }
 </style>
