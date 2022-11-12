@@ -34,7 +34,7 @@
           @keypress.enter.prevent="createNewQuestion()"
         />
         <button class="ask__btn" @click.prevent="createNewQuestion()">
-          Ask a Question
+          Send
         </button>
       </div>
     </form>
@@ -138,7 +138,7 @@ li {
   max-width: 700px;
   flex-direction: column;
   padding: 0.75rem;
-  gap: 4rem;
+  gap: 3rem;
 }
 .questions__list {
   display: flex;
@@ -240,7 +240,7 @@ li {
   flex-wrap: wrap;
   margin: auto;
   width: 100%;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .searchbar {
@@ -255,7 +255,7 @@ li {
   gap: 1.25rem;
   border-radius: 2px;
   flex: 1 1 100%;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .search__input {
@@ -264,7 +264,6 @@ li {
   font-size: 16px;
   font-weight: 600;
   color: var(--clr-primary);
-
   width: 100%;
 }
 
