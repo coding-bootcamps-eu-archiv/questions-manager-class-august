@@ -32,11 +32,15 @@
           placeholder="Ask your question!"
           v-model="newQuestion"
           @keypress.enter.prevent="createNewQuestion()"
+          @focus="isFocused = true"
         />
         <button class="ask__btn" @click.prevent="createNewQuestion()">
           Send
         </button>
       </div>
+      <p v-show="newQuestionError" class="errorCountCharactersMsg">
+        Bitte mindestens 5 Zeichen eingeben!
+      </p>
     </form>
 
     <ul class="questions__list" id="questions-list">
@@ -78,6 +82,7 @@ export default {
       newQuestion: "",
       searchQuery: "",
       headline: "Current Session → Student",
+      isFocused: false,
     };
   },
   computed: {
@@ -89,6 +94,9 @@ export default {
       } else {
         return this.questions;
       }
+    },
+    newQuestionError() {
+      return this.newQuestion.length < 5 && this.isFocused;
     },
   },
 
@@ -328,6 +336,12 @@ li {
   appearance: none;
   border: 1px solid hotpink;
 }
+
+.errorCountCharactersMsg {
+  color: hotpink;
+  padding-top: 0.25rem;
+}
+
 .ask__btn {
   all: unset;
   text-align: center;
