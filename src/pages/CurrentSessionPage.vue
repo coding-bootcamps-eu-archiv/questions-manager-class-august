@@ -32,11 +32,15 @@
           placeholder="Ask your question!"
           v-model="newQuestion"
           @keypress.enter.prevent="createNewQuestion()"
+          @focus="isFocused = true"
         />
         <button class="ask__btn" @click.prevent="createNewQuestion()">
-          Ask a Question
+          Send
         </button>
       </div>
+      <p v-show="newQuestionError" class="errorCountCharactersMsg">
+        Bitte mindestens 5 Zeichen eingeben!
+      </p>
     </form>
 
     <ul class="questions__list" id="questions-list">
@@ -53,7 +57,10 @@
         </div>
         <div class="like__btn">
           <label class="trigger">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              @change="updateLikes(question, $event.target.checked)"
+            />
             <div class="like"></div>
           </label>
         </div>
@@ -75,6 +82,7 @@ export default {
       newQuestion: "",
       searchQuery: "",
       headline: "Current Session → Student",
+      isFocused: false,
     };
   },
   computed: {
@@ -86,6 +94,9 @@ export default {
       } else {
         return this.questions;
       }
+    },
+    newQuestionError() {
+      return this.newQuestion.length < 5 && this.isFocused;
     },
   },
 
@@ -107,6 +118,23 @@ export default {
 
         this.newQuestion = "";
       }
+    },
+    async updateLikes(question, checked) {
+      if (checked) {
+        question.likes++;
+      } else {
+        question.likes--;
+      }
+      await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/questions/" + question.id,
+        {
+          method: "PUT",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(question),
+        }
+      );
+
+      return question;
     },
   },
 
@@ -138,7 +166,7 @@ li {
   max-width: 700px;
   flex-direction: column;
   padding: 0.75rem;
-  gap: 4rem;
+  gap: 3rem;
 }
 .questions__list {
   display: flex;
@@ -240,7 +268,7 @@ li {
   flex-wrap: wrap;
   margin: auto;
   width: 100%;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .searchbar {
@@ -255,7 +283,7 @@ li {
   gap: 1.25rem;
   border-radius: 2px;
   flex: 1 1 100%;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .search__input {
@@ -264,7 +292,6 @@ li {
   font-size: 16px;
   font-weight: 600;
   color: var(--clr-primary);
-
   width: 100%;
 }
 
@@ -309,6 +336,12 @@ li {
   appearance: none;
   border: 1px solid hotpink;
 }
+
+.errorCountCharactersMsg {
+  color: hotpink;
+  padding-top: 0.25rem;
+}
+
 .ask__btn {
   all: unset;
   text-align: center;
