@@ -1,5 +1,6 @@
 <template>
   <section class="questions" id="questions">
+    <SubHeader :subheader="headline" />
     <ul class="questions__list" id="questions-list">
       <h3 class="header__open">Open:</h3>
       <li
@@ -149,7 +150,11 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { questions: [], search: "" };
+    return {
+      questions: [],
+      search: "",
+      headline: "Current Session → Coaches",
+    };
   },
   computed: {
     currentUrl() {

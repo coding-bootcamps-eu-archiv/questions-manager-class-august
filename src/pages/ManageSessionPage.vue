@@ -1,5 +1,6 @@
 <template>
   <section class="sessions" id="sessions">
+    <SubHeader :subheader="headline" />
     <ul class="sessions__list" id="sessions-list">
       <li
         class="sessions__element"
@@ -75,7 +76,7 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { sessions: [] };
+    return { sessions: [], headline: "Session Overview" };
   },
   async created() {
     const response = await fetch(

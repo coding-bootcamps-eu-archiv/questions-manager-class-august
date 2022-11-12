@@ -1,5 +1,6 @@
 <template>
   <section class="sessions">
+    <SubHeader :subheader="headline" />
     <form class="sessions__inputform">
       <div class="sessions__input-wrapper">
         <label for="titleSession">Title</label>
@@ -35,6 +36,7 @@ export default {
       title: "",
       description: "",
       newSession: {},
+      headline: "Create your Session",
     };
   },
   methods: {

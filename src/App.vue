@@ -1,10 +1,12 @@
 <template>
   <LayoutHeader />
+  <SubHeader :subheader="subheader" />
   <router-view />
 </template>
 
 <script>
 import LayoutHeader from "./components/LayoutHeader.vue";
+
 export default {
   components: {
     LayoutHeader,

@@ -1,5 +1,6 @@
 <template>
   <section class="questions" id="questions">
+    <SubHeader :subheader="headline" />
     <form>
       <div class="form__container">
         <div class="searchbar">
@@ -73,6 +74,7 @@ export default {
       questions: [],
       newQuestion: "",
       searchQuery: "",
+      headline: "Current Session → Student",
     };
   },
   computed: {
