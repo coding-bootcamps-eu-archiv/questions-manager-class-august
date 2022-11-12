@@ -53,7 +53,10 @@
         </div>
         <div class="like__btn">
           <label class="trigger">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              @change="updateLikes(question, $event.target.checked)"
+            />
             <div class="like"></div>
           </label>
         </div>
@@ -107,6 +110,23 @@ export default {
 
         this.newQuestion = "";
       }
+    },
+    async updateLikes(question, checked) {
+      if (checked) {
+        question.likes++;
+      } else {
+        question.likes--;
+      }
+      await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/questions/" + question.id,
+        {
+          method: "PUT",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(question),
+        }
+      );
+
+      return question;
     },
   },
 
