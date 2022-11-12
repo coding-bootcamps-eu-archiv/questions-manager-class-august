@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       questions: [],
+      sortedQuestions: [],
       newQuestion: "",
       searchQuery: "",
       headline: "Current Session → Student",
@@ -87,6 +88,7 @@ export default {
   },
   computed: {
     searchQuestions() {
+      this.sortQuestions(this.questions);
       if (this.searchQuery.length > 0) {
         return this.questions.filter((q) =>
           q.question.toLowerCase().includes(this.searchQuery.toLowerCase())
@@ -135,6 +137,13 @@ export default {
       );
 
       return question;
+    },
+    sortQuestions(array) {
+      return array
+        .sort((a, b) => {
+          return a.likes - b.likes;
+        })
+        .reverse();
     },
   },
 
