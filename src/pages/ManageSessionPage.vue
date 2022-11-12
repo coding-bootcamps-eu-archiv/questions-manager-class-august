@@ -4,19 +4,22 @@
     <ul class="sessions__list" id="sessions-list">
       <li
         class="sessions__element"
-        v-for="session in sessions"
+        v-for="(session, index) in sessions"
         :key="session.id"
       >
         <div class="session__wrapper">
-          <h3 class="session__name">
-            <router-link
-              :to="{ name: 'currentsession', params: { id: session.id } }"
-            >
-              {{ session.title }}
-            </router-link>
-          </h3>
-          <p class="session__date">
-            {{ dayJS(session.createdAt).fromNow() }}
+          <div class="name__wrapper">
+            <h3 class="session__name">
+              <a @click="toggleDescription" :id="index">
+                {{ session.title }}
+              </a>
+            </h3>
+            <p class="session__date">
+              {{ dayJS(session.createdAt).fromNow() }}
+            </p>
+          </div>
+          <p ref="session" class="session__desc toggle">
+            {{ session.description }}
           </p>
         </div>
         <div class="btn__wrapper">
@@ -76,13 +79,18 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { sessions: [], headline: "Session Overview" };
+    return { sessions: [], headline: "Session Overview", lastToggle: null };
   },
   async created() {
-    const response = await fetch(
-      process.env.VUE_APP_API_BASE_URL + "/sessions"
-    );
-    this.sessions = await response.json();
+    await this.fetchSessions();
+  },
+
+  watch: {
+    sessions(newSessions, oldSessions) {
+      if (newSessions.length < oldSessions.length) {
+        this.fetchSessions();
+      }
+    },
   },
   methods: {
     ConfirmDeleteSession(currentSession) {
@@ -99,7 +107,27 @@ export default {
           method: "DELETE",
         }
       );
+      this.fetchSessions();
       return response;
+    },
+    async fetchSessions() {
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/sessions"
+      );
+      this.sessions = await response.json();
+    },
+    toggleDescription(event) {
+      const id = event.target.id;
+      if (this.lastToggle === null) {
+        this.lastToggle = event.target.id;
+        this.$refs.session[id].classList.toggle("toggle");
+      } else if (this.lastToggle === event.target.id) {
+        return;
+      } else {
+        this.$refs.session[this.lastToggle].classList.toggle("toggle");
+        this.$refs.session[id].classList.toggle("toggle");
+        this.lastToggle = event.target.id;
+      }
     },
   },
 };
@@ -108,13 +136,16 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 ul,
 li {
   all: unset;
 }
-
+.toggle {
+  display: none;
+}
 .sessions {
   margin: auto;
   max-width: 100ch;
@@ -123,31 +154,45 @@ li {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
+  gap: 0.25rem;
 }
 
 .sessions__element {
   display: flex;
   align-items: center;
   width: 100%;
+  max-height: min-content;
 }
 .session__wrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 0.5rem;
+  gap: 0.25rem;
   border: 1px solid var(--clr-primary);
-  cursor: pointer;
   flex: 3 0 auto;
+}
+
+.name__wrapper {
+  display: flex;
 }
 .session__name {
   font-size: 1rem;
   font-weight: normal;
   color: var(--clr-text);
+  flex: 3 0 auto;
 }
 .session__date {
   font-size: 0.75rem;
   font-weight: normal;
   color: var(--clr-primary-inactive);
+  flex: 0 3 auto;
+}
+
+.session__desc {
+  padding: 0;
+  margin: 0;
+  color: var(--clr-primary-inactive);
+  flex: 4 0 100%;
 }
 .session__wrapper:hover .session__name {
   color: var(--clr-primary);
