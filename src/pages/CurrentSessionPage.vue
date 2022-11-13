@@ -1,6 +1,11 @@
 <template>
   <section class="questions" id="questions">
-    <SubHeader :subheader="headline" />
+    <SubHeader
+      :subheader="headline"
+      :title="sessionTitle"
+      :description="sessionDesc"
+      :date="sessionDateFormat"
+    />
     <form>
       <div class="form__container">
         <div class="searchbar">
@@ -83,6 +88,9 @@ export default {
       newQuestion: "",
       searchQuery: "",
       headline: "Current Session → Student",
+      sessionTitle: "",
+      sessionDesc: "",
+      sessionDate: "",
       isFocused: false,
     };
   },
@@ -99,6 +107,9 @@ export default {
     },
     newQuestionError() {
       return this.newQuestion.length < 5 && this.isFocused;
+    },
+    sessionDateFormat() {
+      return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
     },
   },
 
@@ -159,6 +170,18 @@ export default {
       },
       false
     );
+    const response = await fetch(
+      process.env.VUE_APP_API_BASE_URL +
+        "/sessions/" +
+        this.$route.params.id +
+        "?_embed=questions"
+    );
+
+    this.data = await response.json();
+    this.questions = this.data.questions;
+    this.sessionTitle = this.data.title;
+    this.sessionDesc = this.data.description;
+    this.sessionDate = this.data.date;
   },
 };
 </script>
