@@ -191,7 +191,7 @@ export default {
           body: JSON.stringify(question),
         }
       );
-      return response.JSON();
+      return response;
     },
     onCheckChangeState(event) {
       this.questions.forEach((question) => {
