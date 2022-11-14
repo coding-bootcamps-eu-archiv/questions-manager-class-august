@@ -208,9 +208,9 @@ li {
   display: flex;
   align-items: center;
   width: calc(100% - 3.5px);
-  background-color: var(--clr-primary);
+  background-color: var(--clr-dark-purple);
   border: 2px solid var(--clr-primary);
-  box-shadow: 3.5px 3.5px 0px var(--clr-secondary);
+  box-shadow: 3.5px 3.5px 0px var(--clr-primary);
   border-radius: 2px;
 }
 .question__wrapper {
