@@ -38,6 +38,7 @@
           v-model="newQuestion"
           @keypress.enter.prevent="createNewQuestion()"
           @focus="isFocused = true"
+          @focusout="isFocused = false"
         />
         <button class="ask__btn" @click.prevent="createNewQuestion()">
           Send
