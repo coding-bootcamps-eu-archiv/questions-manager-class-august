@@ -53,7 +53,6 @@ export default {
       this.newSession = await response.json();
       this.$router.push({
         name: "home",
-        params: { id: this.newSession.id },
       });
     },
   },
