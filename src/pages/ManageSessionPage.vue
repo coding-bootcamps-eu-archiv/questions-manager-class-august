@@ -4,18 +4,17 @@
     <table class="sessions__list">
       <thead>
         <tr>
-          <th class="sessions__title__element">Session</th>
-          <th class="sessions__date__element">Created</th>
-          <th class="sessions__actions__element"></th>
+          <th class="sessions__title">Sessions</th>
+          <th class="sessions__actions">{{ sessions.length }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="session in sessions" :key="session.id" class="sessions__row">
-          <td>{{ session.title }}</td>
-          <td>
+          <td class="sessions__title-element">
+            <h3>{{ session.title }}</h3>
             {{ dayJS(session.createdAt).fromNow() }}
           </td>
-          <td>
+          <td class="sessions__actions-element">
             <router-link :to="{ name: 'edit', params: { id: session.id } }">
               <button class="btn btn--edit">
                 <svg
@@ -35,7 +34,7 @@
               </button>
             </router-link>
             <button
-              @click="ConfirmDeleteSession(session)"
+              @click="confirmDeleteSession(session)"
               class="btn btn--delete"
             >
               <svg
@@ -58,10 +57,14 @@
         </tr>
       </tbody>
     </table>
-    <nav>
-      <router-link class="router-link" :to="{ name: 'create' }">
-        <button class="btn--createSession">Create Session</button>
-      </router-link>
+    <nav class="create-session">
+      <button
+        class="btn btn--create-session"
+        @click="$router.push({ name: 'create' })"
+        id="create-session"
+      >
+        Create Session
+      </button>
     </nav>
   </section>
 </template>
@@ -70,56 +73,42 @@
 export default {
   inject: ["dayJS"],
   data() {
-    return { sessions: [], headline: "Session Overview", lastToggle: null };
+    return { sessions: [], headline: "Session Overview" };
   },
   async created() {
-    await this.fetchSessions();
+    await this.getSessions();
   },
 
   watch: {
     sessions(newSessions, oldSessions) {
       if (newSessions.length < oldSessions.length) {
-        this.fetchSessions();
+        this.getSessions();
       }
     },
   },
   methods: {
-    ConfirmDeleteSession(currentSession) {
+    confirmDeleteSession(currentSession) {
       const deleteMsg = `Do you really want to delete the session with all questions?
       ${currentSession.title}`;
       if (confirm(deleteMsg)) {
-        this.DeleteSession(currentSession);
+        this.deleteSession(currentSession);
       }
     },
-    async DeleteSession(currentSession) {
+    async deleteSession(currentSession) {
       const response = await fetch(
         process.env.VUE_APP_API_BASE_URL + "/sessions/" + currentSession.id,
         {
           method: "DELETE",
         }
       );
-      this.fetchSessions();
+      this.getSessions();
       return response;
     },
-    async fetchSessions() {
+    async getSessions() {
       const response = await fetch(
         process.env.VUE_APP_API_BASE_URL + "/sessions"
       );
       this.sessions = await response.json();
-    },
-    toggleDescription(event) {
-      const id = event.target.id;
-      if (this.lastToggle === null) {
-        this.lastToggle = event.target.id;
-        this.$refs.session[id].classList.toggle("toggle");
-      } else if (this.lastToggle === event.target.id) {
-        this.$refs.session[id].classList.toggle("toggle");
-        this.lastToggle = null;
-      } else {
-        this.$refs.session[this.lastToggle].classList.toggle("toggle");
-        this.$refs.session[id].classList.toggle("toggle");
-        this.lastToggle = event.target.id;
-      }
     },
   },
 };
@@ -135,14 +124,20 @@ table,
 td,
 th {
   width: 100%;
+  table-layout: fixed;
   text-align: left;
 }
 
-tr {
+tbody tr {
   border-bottom: 1px solid black;
   font-size: 1rem;
 }
 
+.sessions {
+  margin: auto;
+  max-width: 75ch;
+  padding: 0 1rem;
+}
 .sessions__list {
   border-collapse: collapse;
   margin: 25px 0;
@@ -150,60 +145,60 @@ tr {
   width: 100%;
 }
 
-.sessions__title__element {
-  width: 60%;
+.sessions__title {
+  width: 75%;
 }
-.sessions__date__element {
-  width: 20%;
+.sessions__actions {
+  width: 25%;
 }
-.sessions__actions__element {
-  width: 20%;
-}
+
 .sessions__list thead tr {
-  background-color: var(--clr-primary);
-  color: #ffffff;
+  color: var(--clr-text);
   text-align: left;
 }
 
 .sessions__list th {
-  padding: 12px 15px;
+  padding: 0.5rem 1rem 2rem 0.25rem;
+}
+.sessions__list td {
+  padding: 1rem;
 }
 
-tbody tr {
-  margin-top: 1rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 2px solid var(--clr-dark-purple);
+.sessions__title {
+  width: 80%;
 }
-.sessions__title__element {
-  width: 65%;
-}
-.sessions__date__element {
+
+.sessions__actions {
   width: 20%;
-}
-.sessions__actions__element {
-  width: 15%;
+  text-align: right;
 }
 
-.sessions {
-  margin: auto;
-  max-width: 700px;
+.sessions__title-element {
+  word-wrap: break-word;
 }
 
+.sessions__title-element h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+.sessions__actions-element {
+  text-align: right;
+}
+
+.sessions__list tbody tr:last-of-type {
+  border-bottom: 2px solid var(--clr-primary);
+}
 .btn {
   all: unset;
+  cursor: pointer;
 }
 
 .btn--delete,
 .btn--edit {
-  align-self: center;
   padding: 0.5rem;
-  cursor: pointer;
+  padding-right: 0;
+  align-self: center;
   color: var(--clr-text);
-  transform: translateY(5%);
-}
-
-.btn--delete {
-  padding-top: 0.5rem;
 }
 
 .btn--edit:hover {
@@ -213,39 +208,32 @@ tbody tr {
 .btn--delete:hover {
   color: hotpink;
 }
-.btn--createSession {
-  all: unset;
-  white-space: nowrap;
-  border-radius: 2px;
-  color: var(--clr-primary);
+
+.create-session {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+}
+.btn--create-session {
   background-color: var(--clr-surface);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
   border: 1.75px solid var(--clr-primary);
   box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
-  padding: 0.5rem 1.25rem;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  margin: 1rem 40%;
 }
 
-.router-link:active,
-.router-link:hover {
-  color: var(--clr-surface);
-}
-.btn--createSession:hover {
+.btn--create-session:hover {
   background: var(--clr-primary);
-  border-radius: 2px;
   color: var(--clr-surface);
 }
-.btn--createSession:active {
+.btn--create-session:active {
   outline: none;
   box-shadow: none;
-  font-size: 16px;
-  font-weight: 600;
   color: var(--clr-surface);
   background: var(--clr-primary);
-  border: 1.75px solid var(--clr-primary);
-  padding: 0.5rem 1.25rem;
-  border-radius: 2px;
 }
 </style>
