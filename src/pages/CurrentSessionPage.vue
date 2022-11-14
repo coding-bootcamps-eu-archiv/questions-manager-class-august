@@ -15,7 +15,7 @@
             placeholder="Search for a question"
             v-model="searchQuery"
           />
-          <button class="magnifying" type="submit">
+          <button @click.prevent class="magnifying" type="submit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -397,8 +397,8 @@ li {
 .ask__btn:active {
   outline: none;
   box-shadow: none;
-  color: var(--clr-surface);
-  background: var(--clr-secondary);
+  background-color: var(--clr-surface);
+  color: var(--clr-primary);
   border: 1.75px solid var(--clr-primary);
   padding: 0.5rem 1.25rem;
   border-radius: 2px;
