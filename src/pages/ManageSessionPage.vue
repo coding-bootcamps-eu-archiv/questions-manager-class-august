@@ -122,7 +122,8 @@ export default {
         this.lastToggle = event.target.id;
         this.$refs.session[id].classList.toggle("toggle");
       } else if (this.lastToggle === event.target.id) {
-        return;
+        this.$refs.session[id].classList.toggle("toggle");
+        this.lastToggle = null;
       } else {
         this.$refs.session[this.lastToggle].classList.toggle("toggle");
         this.$refs.session[id].classList.toggle("toggle");
