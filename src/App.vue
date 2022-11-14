@@ -1,6 +1,5 @@
 <template>
   <LayoutHeader />
-  <SubHeader :subheader="subheader" />
   <router-view />
   <LayoutFooter />
 </template>
