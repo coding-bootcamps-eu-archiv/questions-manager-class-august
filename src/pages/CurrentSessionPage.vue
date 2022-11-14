@@ -44,9 +44,10 @@
     </form>
 
     <ul class="questions__list" id="questions-list">
+      <h3 class="header__open">Open:</h3>
       <li
         class="questions_element"
-        v-for="question in searchQuestions"
+        v-for="question in filterOpen"
         :key="question.id"
       >
         <div class="question__wrapper">
@@ -67,7 +68,31 @@
         <p class="question__counter">{{ question.likes }} Likes</p>
       </li>
     </ul>
-
+    <ul class="questions__list" id="questions-list">
+      <h3 class="header__answered">Answered:</h3>
+      <li
+        class="questions_element"
+        v-for="question in filterAnswered"
+        :key="question.id"
+      >
+        <div class="question__wrapper">
+          <p class="question__date">
+            {{ dayJS(question.createdAt).fromNow() }}
+          </p>
+          <p class="question__name">{{ question.question }}</p>
+        </div>
+        <div class="like__btn">
+          <label class="trigger">
+            <input
+              type="checkbox"
+              @change="updateLikes(question, $event.target.checked)"
+            />
+            <div class="like"></div>
+          </label>
+        </div>
+        <p class="question__counter">{{ question.likes }} Likes</p>
+      </li>
+    </ul>
     <!-- will be removed after handling all related issues -->
     <pre>{{ questions }}</pre>
   </section>
@@ -99,6 +124,12 @@ export default {
     },
     newQuestionError() {
       return this.newQuestion.length < 5 && this.isFocused;
+    },
+    filterAnswered() {
+      return this.questions.filter((question) => question.open === false);
+    },
+    filterOpen() {
+      return this.questions.filter((question) => question.open === true);
     },
   },
 
@@ -168,7 +199,14 @@ ul,
 li {
   all: unset;
 }
-
+.header__open {
+  color: rgb(94, 189, 94);
+  padding-bottom: 0.5rem;
+}
+.header__answered {
+  color: salmon;
+  padding-bottom: 0.5rem;
+}
 .questions {
   display: flex;
   margin: auto;
