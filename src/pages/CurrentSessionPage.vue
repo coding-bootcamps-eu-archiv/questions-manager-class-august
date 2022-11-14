@@ -138,13 +138,11 @@ export default {
     },
     filterOpen() {
       return this.questions.filter((question) => question.open === true);
-
+    },
     sessionDateFormat() {
       return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
-
     },
   },
-
   methods: {
     async createNewQuestion() {
       if (this.newQuestion.length > 4) {
@@ -225,11 +223,13 @@ li {
 }
 .header__open {
   color: rgb(94, 189, 94);
-  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: -10px;
 }
 .header__answered {
   color: salmon;
-  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: -10px;
 }
 .questions {
   display: flex;
@@ -249,9 +249,9 @@ li {
   display: flex;
   align-items: center;
   width: calc(100% - 3.5px);
-  background-color: var(--clr-primary);
+  background-color: var(--clr-dark-purple);
   border: 2px solid var(--clr-primary);
-  box-shadow: 3.5px 3.5px 0px var(--clr-secondary);
+  box-shadow: 3.5px 3.5px 0px var(--clr-primary);
   border-radius: 2px;
 }
 .question__wrapper {
