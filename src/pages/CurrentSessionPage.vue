@@ -1,6 +1,11 @@
 <template>
   <section class="questions" id="questions">
-    <SubHeader :subheader="headline" />
+    <SubHeader
+      :subheader="headline"
+      :title="sessionTitle"
+      :description="sessionDesc"
+      :date="sessionDateFormat"
+    />
     <form>
       <div class="form__container">
         <div class="searchbar">
@@ -10,7 +15,7 @@
             placeholder="Search for a question"
             v-model="searchQuery"
           />
-          <button class="magnifying" type="submit">
+          <button @click.prevent class="magnifying" type="submit">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -33,6 +38,7 @@
           v-model="newQuestion"
           @keypress.enter.prevent="createNewQuestion()"
           @focus="isFocused = true"
+          @focusout="isFocused = false"
         />
         <button class="ask__btn" @click.prevent="createNewQuestion()">
           Send
@@ -108,6 +114,9 @@ export default {
       newQuestion: "",
       searchQuery: "",
       headline: "Current Session → Student",
+      sessionTitle: "",
+      sessionDesc: "",
+      sessionDate: "",
       isFocused: false,
     };
   },
@@ -125,11 +134,16 @@ export default {
     newQuestionError() {
       return this.newQuestion.length < 5 && this.isFocused;
     },
+
     filterAnswered() {
       return this.questions.filter((question) => question.open === false);
     },
     filterOpen() {
       return this.questions.filter((question) => question.open === true);
+
+    sessionDateFormat() {
+      return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
+
     },
   },
 
@@ -172,7 +186,7 @@ export default {
     sortQuestions(array) {
       return array
         .sort((a, b) => {
-          return a.likes - b.likes;
+          return a.createdAt - b.createdAt;
         })
         .reverse();
     },
@@ -190,6 +204,18 @@ export default {
       },
       false
     );
+    const response = await fetch(
+      process.env.VUE_APP_API_BASE_URL +
+        "/sessions/" +
+        this.$route.params.id +
+        "?_embed=questions"
+    );
+
+    this.data = await response.json();
+    this.questions = this.data.questions;
+    this.sessionTitle = this.data.title;
+    this.sessionDesc = this.data.description;
+    this.sessionDate = this.data.date;
   },
 };
 </script>
@@ -396,6 +422,7 @@ li {
   font-weight: 600;
   color: var(--clr-surface);
   background: var(--clr-secondary);
+  cursor: pointer;
 
   border: 1.75px solid var(--clr-primary);
   padding: 0.5rem 1.25rem;
@@ -403,10 +430,18 @@ li {
   border-radius: 2px;
   flex: 0 1 auto;
 }
+.ask__btn:hover {
+  background: var(--clr-surface);
+  border-radius: 2px;
+  color: var(--clr-primary);
+}
 .ask__btn:active {
   outline: none;
   box-shadow: none;
+  background-color: var(--clr-surface);
   color: var(--clr-primary);
-  background: var(--clr-surface);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
 }
 </style>

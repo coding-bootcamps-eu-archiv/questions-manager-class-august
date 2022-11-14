@@ -122,7 +122,8 @@ export default {
         this.lastToggle = event.target.id;
         this.$refs.session[id].classList.toggle("toggle");
       } else if (this.lastToggle === event.target.id) {
-        return;
+        this.$refs.session[id].classList.toggle("toggle");
+        this.lastToggle = null;
       } else {
         this.$refs.session[this.lastToggle].classList.toggle("toggle");
         this.$refs.session[id].classList.toggle("toggle");
@@ -148,13 +149,14 @@ li {
 }
 .sessions {
   margin: auto;
-  max-width: 100ch;
+  max-width: 700px;
 }
 .sessions__list {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
   gap: 0.25rem;
+  max-width: 700px;
 }
 
 .sessions__element {
@@ -170,16 +172,21 @@ li {
   gap: 0.25rem;
   border: 1px solid var(--clr-primary);
   flex: 3 0 auto;
+  max-width: 500px;
+  min-width: 350px;
 }
 
 .name__wrapper {
   display: flex;
+  justify-content: space-between;
 }
 .session__name {
+  display: block;
   font-size: 1rem;
   font-weight: normal;
   color: var(--clr-text);
   flex: 3 0 auto;
+  max-width: 300px;
 }
 .session__date {
   font-size: 0.75rem;
@@ -232,6 +239,7 @@ li {
 }
 .btn--createSession {
   all: unset;
+  white-space: nowrap;
   border-radius: 2px;
   color: var(--clr-primary);
   background-color: var(--clr-surface);

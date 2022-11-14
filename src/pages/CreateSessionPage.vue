@@ -51,8 +51,9 @@ export default {
         }
       );
       this.newSession = await response.json();
+
       this.$router.push({
-        name: "home",
+        name: "edit",
         params: { id: this.newSession.id },
       });
     },
@@ -86,11 +87,24 @@ export default {
   text-align: center;
   color: var(--clr-primary);
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .sessions__add-button:hover {
   background: var(--clr-primary);
   color: var(--clr-surface);
+  border-radius: 2px;
+}
+
+.sessions__add-button:active {
+  outline: none;
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-surface);
+  background: var(--clr-primary);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
   border-radius: 2px;
 }
 
