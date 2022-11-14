@@ -6,6 +6,31 @@
       :description="sessionDesc"
       :date="sessionDateFormat"
     />
+    <form>
+      <div class="form__container">
+        <div class="searchbar">
+          <input
+            class="search__input"
+            type="text"
+            placeholder="Search for a question"
+            v-model="searchQuery"
+          />
+          <button @click.prevent class="magnifying" type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </form>
     <ul class="questions__list" id="questions-list">
       <h3 class="header__open">Open:</h3>
       <li
@@ -152,6 +177,7 @@ export default {
       data: [],
       questions: [],
       search: "",
+      searchQuery: "",
       headline: "Current Session → Coaches",
       sessionTitle: "",
       sessionDesc: "",
@@ -161,7 +187,7 @@ export default {
   computed: {
     currentUrl() {
       let sessionUrl = window.location.href;
-      sessionUrl = sessionUrl.split("edit/").join("");
+      sessionUrl = sessionUrl.split("manage/edit/").join("session/");
       return sessionUrl;
     },
     filterAnswered() {
@@ -267,6 +293,58 @@ li {
   box-shadow: var(--clr-primary-inactive) 0px 2px 5px 0px,
     var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
+}
+.form__container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
+    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  background: var(--clr-surface);
+  gap: 1.25rem;
+  border-radius: 2px;
+  flex: 1 1 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search__input {
+  all: unset;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  width: 100%;
+}
+.searchbar:focus-within {
+  appearance: none;
+  border: 1px solid hotpink;
+}
+.searchtext:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.magnifying {
+  all: unset;
+  fill: var(--clr-primary);
+}
+.search__input::placeholder {
+  color: var(--clr-primary-inactive);
 }
 .header__open {
   color: rgb(94, 189, 94);
