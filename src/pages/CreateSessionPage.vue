@@ -51,8 +51,10 @@ export default {
         }
       );
       this.newSession = await response.json();
+
       this.$router.push({
-        name: "home",
+        name: "edit",
+        params: { id: this.newSession.id },
       });
     },
   },
