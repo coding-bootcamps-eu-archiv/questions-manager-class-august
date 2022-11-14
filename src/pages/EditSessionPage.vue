@@ -101,7 +101,7 @@
       <h3 class="header__answered">Answered:</h3>
       <li
         class="questions_element"
-        v-for="question in filterAnswered"
+        v-for="question in filterClosed"
         :key="question.id"
       >
         <div class="wrapper">
@@ -184,17 +184,39 @@ export default {
       sessionUrl = sessionUrl.split("manage/edit/").join("session/");
       return sessionUrl;
     },
-    filterAnswered() {
-      return this.questions.filter((question) => question.open === false);
-    },
-    filterOpen() {
-      return this.questions.filter((question) => question.open === true);
-    },
+
     sessionDateFormat() {
       return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
     },
+
+    filterOpen() {
+      return this.searchQuestions(this.findOpen);
+    },
+
+    filterClosed() {
+      return this.searchQuestions(this.findClosed);
+    },
+
+    findClosed() {
+      return this.questions.filter((question) => question.open === false);
+    },
+
+    findOpen() {
+      return this.questions.filter((question) => question.open === true);
+    },
   },
   methods: {
+    searchQuestions(array) {
+      this.sortQuestions(array);
+      if (this.searchQuery.length > 0) {
+        return array.filter((q) =>
+          q.question.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      } else {
+        return array;
+      }
+    },
+
     async updateStatusQuestion(question) {
       const response = await fetch(
         process.env.VUE_APP_API_BASE_URL + "/questions/" + question.id,
@@ -206,6 +228,7 @@ export default {
       );
       return response;
     },
+
     onCheckChangeState(event) {
       this.questions.forEach((question) => {
         if (question.id === event.target.id) {
@@ -214,12 +237,14 @@ export default {
         }
       });
     },
+
     confirmDelete(question) {
       const deleteMsg = `Do you really want to delete question: ${question.question}?`;
       if (confirm(deleteMsg)) {
         this.deleteQuestion(question);
       }
     },
+
     async deleteQuestion(question) {
       const response = await fetch(
         process.env.VUE_APP_API_BASE_URL + "/questions/" + question.id,
@@ -228,6 +253,17 @@ export default {
         }
       );
       return response;
+    },
+
+    async getSessionData() {
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/sessions/" + this.$route.params.id
+      );
+
+      this.data = await response.json();
+      this.sessionTitle = this.data.title;
+      this.sessionDesc = this.data.description;
+      this.sessionDate = this.data.date;
     },
 
     sortQuestions(array) {
@@ -239,19 +275,7 @@ export default {
     },
   },
   async created() {
-    //will be replaced with streaming function of api in a later issue (see api docs)
-    const response = await fetch(
-      process.env.VUE_APP_API_BASE_URL +
-        "/sessions/" +
-        this.$route.params.id +
-        "?_embed=questions"
-    );
-
-    this.data = await response.json();
-    this.questions = this.data.questions;
-    this.sessionTitle = this.data.title;
-    this.sessionDesc = this.data.description;
-    this.sessionDate = this.data.date;
+    this.getSessionData();
 
     const evtSource = new EventSource(
       process.env.VUE_APP_API_BASE_URL + "/stream/" + this.$route.params.id
@@ -261,7 +285,6 @@ export default {
       "message",
       (event) => {
         this.questions = JSON.parse(event.data);
-        this.sortQuestions(this.questions);
       },
       false
     );

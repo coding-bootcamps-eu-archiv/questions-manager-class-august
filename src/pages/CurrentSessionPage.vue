@@ -78,7 +78,7 @@
       <h3 class="header__answered">Answered:</h3>
       <li
         class="questions_element"
-        v-for="question in filterAnswered"
+        v-for="question in filterClosed"
         :key="question.id"
       >
         <div class="question__wrapper">
@@ -108,7 +108,6 @@ export default {
   data() {
     return {
       questions: [],
-      sortedQuestions: [],
       newQuestion: "",
       searchQuery: "",
       headline: "Current Session → Student",
@@ -116,34 +115,46 @@ export default {
       sessionDesc: "",
       sessionDate: "",
       isFocused: false,
+      onlyOpenQuestions: "",
+      onlyClosedQuestions: "",
     };
   },
   computed: {
-    searchQuestions() {
-      this.sortQuestions(this.questions);
-      if (this.searchQuery.length > 0) {
-        return this.questions.filter((q) =>
-          q.question.toLowerCase().includes(this.searchQuery.toLowerCase())
-        );
-      } else {
-        return this.questions;
-      }
-    },
     newQuestionError() {
       return this.newQuestion.length < 5 && this.isFocused;
-    },
-
-    filterAnswered() {
-      return this.questions.filter((question) => question.open === false);
-    },
-    filterOpen() {
-      return this.questions.filter((question) => question.open === true);
     },
     sessionDateFormat() {
       return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
     },
+
+    filterOpen() {
+      return this.searchQuestions(this.findOpen);
+    },
+
+    filterClosed() {
+      return this.searchQuestions(this.findClosed);
+    },
+
+    findClosed() {
+      return this.questions.filter((question) => question.open === false);
+    },
+
+    findOpen() {
+      return this.questions.filter((question) => question.open === true);
+    },
   },
   methods: {
+    searchQuestions(array) {
+      this.sortQuestions(array);
+      if (this.searchQuery.length > 0) {
+        return array.filter((q) =>
+          q.question.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      } else {
+        return array;
+      }
+    },
+
     async createNewQuestion() {
       if (this.newQuestion.length > 4) {
         const body = {
@@ -162,6 +173,7 @@ export default {
         this.newQuestion = "";
       }
     },
+
     async updateLikes(question, checked) {
       if (checked) {
         question.likes++;
@@ -179,6 +191,17 @@ export default {
 
       return question;
     },
+
+    async getSessionData() {
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/sessions/" + this.$route.params.id
+      );
+      this.data = await response.json();
+      this.sessionTitle = this.data.title;
+      this.sessionDesc = this.data.description;
+      this.sessionDate = this.data.date;
+    },
+
     sortQuestions(array) {
       return array
         .sort((a, b) => {
@@ -189,6 +212,8 @@ export default {
   },
 
   async created() {
+    this.getSessionData();
+
     const evtSource = new EventSource(
       process.env.VUE_APP_API_BASE_URL + "/stream/" + this.$route.params.id
     );
@@ -200,18 +225,6 @@ export default {
       },
       false
     );
-    const response = await fetch(
-      process.env.VUE_APP_API_BASE_URL +
-        "/sessions/" +
-        this.$route.params.id +
-        "?_embed=questions"
-    );
-
-    this.data = await response.json();
-    this.questions = this.data.questions;
-    this.sessionTitle = this.data.title;
-    this.sessionDesc = this.data.description;
-    this.sessionDate = this.data.date;
   },
 };
 </script>
