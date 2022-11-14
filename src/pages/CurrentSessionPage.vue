@@ -381,6 +381,7 @@ li {
   font-weight: 600;
   color: var(--clr-surface);
   background: var(--clr-secondary);
+  cursor: pointer;
 
   border: 1.75px solid var(--clr-primary);
   padding: 0.5rem 1.25rem;
@@ -388,10 +389,18 @@ li {
   border-radius: 2px;
   flex: 0 1 auto;
 }
+.ask__btn:hover {
+  background: var(--clr-surface);
+  border-radius: 2px;
+  color: var(--clr-primary);
+}
 .ask__btn:active {
   outline: none;
   box-shadow: none;
-  color: var(--clr-primary);
-  background: var(--clr-surface);
+  color: var(--clr-surface);
+  background: var(--clr-secondary);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
 }
 </style>
