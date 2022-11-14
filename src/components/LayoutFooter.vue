@@ -12,6 +12,7 @@ footer {
   color: var(--clr-surface);
   text-align: center;
   padding: 2rem;
+  margin-top: 3rem;
 }
 
 div {

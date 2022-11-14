@@ -34,7 +34,7 @@
           type="text"
           name="question"
           id="question"
-          placeholder="Ask your question!"
+          placeholder="Ask your question"
           v-model="newQuestion"
           @keypress.enter.prevent="createNewQuestion()"
           @focus="isFocused = true"
@@ -73,9 +73,6 @@
         <p class="question__counter">{{ question.likes }} Likes</p>
       </li>
     </ul>
-
-    <!-- will be removed after handling all related issues -->
-    <pre>{{ questions }}</pre>
   </section>
 </template>
 
@@ -210,29 +207,29 @@ li {
 .questions_element {
   display: flex;
   align-items: center;
-  width: 100%;
-  background-color: var(--clr-surface);
-  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  width: calc(100% - 3.5px);
+  background-color: var(--clr-primary);
+  border: 2px solid var(--clr-primary);
+  box-shadow: 3.5px 3.5px 0px var(--clr-secondary);
   border-radius: 2px;
 }
 .question__wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem 2.5rem 4rem 0.75rem;
+  padding: 0.5rem 0.5rem 3.5rem 1.75rem;
   gap: 2.5rem;
   width: 100%;
 }
 .question__name {
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-family: "Montserrat", sans-serif;
-  color: var(--clr-secondary);
+  color: var(--clr-surface);
 }
 .question__date {
   font-size: 0.75rem;
   font-weight: normal;
-  color: var(--clr-primary-inactive);
+  color: var(--clr-surface);
 }
 .question__counter {
   display: flex;
@@ -243,7 +240,7 @@ li {
   position: relative;
   font-size: 0.85rem;
   font-weight: normal;
-  color: var(--clr-primary-inactive);
+  color: var(--clr-surface);
   font-family: "Montserrat", sans-serif;
 }
 
@@ -255,8 +252,8 @@ li {
   display: flex;
   align-self: baseline;
   position: relative;
-  margin-top: -30px;
-  margin-right: 25px;
+  margin-top: -37px;
+  margin-right: 45px;
   filter: drop-shadow(1px 1px 2px var(--clr-text));
 }
 .trigger input[type="checkbox"] {
@@ -310,8 +307,8 @@ li {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1.25rem;
-  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  border: 2px solid var(--clr-primary);
+  box-shadow: var(--clr-primary-inactive) 0px 1px 1px 0px;
   background: var(--clr-surface);
   gap: 1.25rem;
   border-radius: 2px;
@@ -330,7 +327,7 @@ li {
 
 .searchbar:focus-within {
   appearance: none;
-  border: 1px solid hotpink;
+  border: 2px solid hotpink;
 }
 .searchtext:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
@@ -350,12 +347,11 @@ li {
   text-align: center;
   font-size: 16px;
   font-weight: 600;
+  padding: 0.5rem 1.25rem;
   color: var(--clr-primary);
   background: var(--clr-surface);
-
-  padding: 0.5rem 1.25rem;
-  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  border: 2px solid var(--clr-primary);
+  box-shadow: var(--clr-primary-inactive) 0px 1px 1px 0px;
   border-radius: 2px;
   flex: 1 0 auto;
 }
@@ -367,7 +363,7 @@ li {
 
 .questions__input:focus {
   appearance: none;
-  border: 1px solid hotpink;
+  border: 2px solid hotpink;
 }
 
 .errorCountCharactersMsg {
@@ -381,12 +377,11 @@ li {
   font-size: 16px;
   font-weight: 600;
   color: var(--clr-surface);
-  background: var(--clr-secondary);
+  background: var(--clr-primary);
   cursor: pointer;
-
   border: 1.75px solid var(--clr-primary);
   padding: 0.5rem 1.25rem;
-  box-shadow: 3.5px 3.5px 0px var(--clr-primary);
+  box-shadow: 3.5px 3.5px 0px var(--clr-secondary);
   border-radius: 2px;
   flex: 0 1 auto;
 }
