@@ -153,7 +153,7 @@ export default {
     sortQuestions(array) {
       return array
         .sort((a, b) => {
-          return a.likes - b.likes;
+          return a.createdAt - b.createdAt;
         })
         .reverse();
     },
