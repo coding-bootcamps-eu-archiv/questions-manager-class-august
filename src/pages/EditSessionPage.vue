@@ -33,8 +33,8 @@
               :id="question.id"
               :checked="!question.open"
             />
-            <label :for="question.id" class="open__label"
-              ><svg
+            <label :for="question.id" class="open__label">
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
                 height="26"
@@ -48,11 +48,7 @@
               </svg>
             </label>
             <!-- have to make my own function -->
-            <button
-              @click="deleteQuestion($event)"
-              class="btn btn--delete"
-              :id="question.id"
-            >
+            <button @click="confirmDelete(question)" class="btn btn--delete">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -101,8 +97,8 @@
               :id="question.id"
               :checked="!question.open"
             />
-            <label :for="question.id" class="open__label"
-              ><svg
+            <label :for="question.id" class="open__label">
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="26"
                 height="26"
@@ -116,11 +112,7 @@
               </svg>
             </label>
             <!-- have to make my own function -->
-            <button
-              @click="deleteQuestion($event)"
-              class="btn btn--delete"
-              :id="question.id"
-            >
+            <button @click="confirmDelete(question)" class="btn btn--delete">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -143,7 +135,8 @@
       </li>
     </ul>
     <h3 class="session__url">
-      Link: <ins>{{ currentUrl }}</ins>
+      Link:
+      <ins>{{ currentUrl }}</ins>
     </h3>
 
     <!-- will be removed after handling all related issues -->
@@ -201,12 +194,28 @@ export default {
         }
       });
     },
-    deleteQuestion(event) {
-      this.questions.forEach((question, index) => {
-        if (question.id === event.target.id) {
-          this.questions.splice(index, 1);
+    confirmDelete(question) {
+      const deleteMsg = `Do you really want to delete question: ${question.question}?`;
+      if (confirm(deleteMsg)) {
+        this.deleteQuestion(question);
+      }
+    },
+    async deleteQuestion(question) {
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/questions/" + question.id,
+        {
+          method: "DELETE",
         }
-      });
+      );
+      return response;
+    },
+
+    sortQuestions(array) {
+      return array
+        .sort((a, b) => {
+          return a.likes - b.likes;
+        })
+        .reverse();
     },
   },
   async created() {
@@ -223,6 +232,19 @@ export default {
     this.sessionTitle = this.data.title;
     this.sessionDesc = this.data.description;
     this.sessionDate = this.data.date;
+
+    const evtSource = new EventSource(
+      process.env.VUE_APP_API_BASE_URL + "/stream/" + this.$route.params.id
+    );
+
+    evtSource.addEventListener(
+      "message",
+      (event) => {
+        this.questions = JSON.parse(event.data);
+        this.sortQuestions(this.questions);
+      },
+      false
+    );
   },
 };
 </script>
