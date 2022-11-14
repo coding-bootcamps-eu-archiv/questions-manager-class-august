@@ -33,7 +33,7 @@ const routes = [
     component: CreateSession,
   },
   {
-    path: "/session/edit/:id",
+    path: "/manage/edit/:id",
     name: "edit",
     component: EditSession,
   },
