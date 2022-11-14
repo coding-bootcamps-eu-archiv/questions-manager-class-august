@@ -6,6 +6,9 @@
       :description="sessionDesc"
       :date="sessionDateFormat"
     />
+    <h3 class="session__url">
+      <a class="url__link" :href="currentUrl">{{ currentUrl }}</a>
+    </h3>
     <form>
       <div class="form__container">
         <div class="searchbar">
@@ -61,8 +64,8 @@
             <label :for="question.id" class="open__label">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
+                width="46"
+                height="46"
                 fill="currentColor"
                 class="bi bi-check"
                 viewBox="0 0 16 16"
@@ -72,12 +75,11 @@
                 />
               </svg>
             </label>
-            <!-- have to make my own function -->
             <button @click="confirmDelete(question)" class="btn btn--delete">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="26"
+                height="26"
                 fill="currentColor"
                 viewBox="0 0 16 16"
                 :id="question.id"
@@ -125,8 +127,8 @@
             <label :for="question.id" class="open__label">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
+                width="46"
+                height="46"
                 fill="currentColor"
                 class="bi bi-check"
                 viewBox="0 0 16 16"
@@ -136,12 +138,11 @@
                 />
               </svg>
             </label>
-            <!-- have to make my own function -->
             <button @click="confirmDelete(question)" class="btn btn--delete">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="26"
+                height="26"
                 fill="currentColor"
                 viewBox="0 0 16 16"
                 :id="question.id"
@@ -159,13 +160,6 @@
         </div>
       </li>
     </ul>
-    <h3 class="session__url">
-      Link:
-      <ins>{{ currentUrl }}</ins>
-    </h3>
-
-    <!-- will be removed after handling all related issues -->
-    <pre>{{ questions }}</pre>
   </section>
 </template>
 
@@ -288,11 +282,19 @@ li {
   font-weight: 500;
   color: hotpink;
   text-align: center;
-  background: var(--clr-surface);
   padding: 0.5rem 1.25rem;
-  box-shadow: var(--clr-primary-inactive) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  border: 2px solid var(--clr-primary);
+  box-shadow: var(--clr-primary-inactive) 0px 1px 1px 0px;
+  background: var(--clr-surface);
   border-radius: 2px;
+}
+.url__link {
+  text-decoration: none;
+  color: var(--clr-primary);
+}
+.url__link:hover {
+  text-decoration: underline;
+  color: hotpink;
 }
 .form__container {
   display: flex;
@@ -301,23 +303,20 @@ li {
   width: 100%;
   gap: 0.5rem;
 }
-
 .searchbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1.25rem;
-  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  border: 2px solid var(--clr-primary);
+  box-shadow: var(--clr-primary-inactive) 0px 1px 1px 0px;
   background: var(--clr-surface);
   gap: 1.25rem;
   border-radius: 2px;
   flex: 1 1 100%;
-  margin-top: 1rem;
   margin-bottom: 1rem;
 }
-
 .search__input {
   all: unset;
   text-align: center;
@@ -328,7 +327,8 @@ li {
 }
 .searchbar:focus-within {
   appearance: none;
-  border: 1px solid hotpink;
+  border: 2px solid hotpink;
+  border-radius: 2px;
 }
 .searchtext:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
@@ -369,12 +369,13 @@ li {
   flex-direction: column;
   gap: 1.25rem;
 }
-
 .questions_element {
   display: flex;
-  background-color: var(--clr-surface);
-  box-shadow: var(--clr-primary) 0px 2px 5px 0px,
-    var(--clr-primary-inactive) 0px 1px 1px 0px;
+  align-items: center;
+  width: calc(100% - 3.5px);
+  background-color: var(--clr-dark-purple);
+  border: 2px solid var(--clr-primary);
+  box-shadow: 3.5px 3.5px 0px var(--clr-primary);
   border-radius: 2px;
 }
 .wrapper {
@@ -394,21 +395,25 @@ li {
   width: 15%;
 }
 .question__name {
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-family: "Montserrat", sans-serif;
-  color: var(--clr-text);
+  color: var(--clr-surface);
 }
 .question__date {
   font-size: 0.75rem;
   font-weight: normal;
-  color: var(--clr-primary-inactive);
+  color: var(--clr-surface);
 }
 .question__counter {
-  align-items: flex-end;
+  display: flex;
+  align-self: flex-end;
   white-space: nowrap;
-  font-size: 0.85rem;
+  bottom: -0.5rem;
+  right: 0.3rem;
+  position: relative;
+  font-size: 0.75rem;
   font-weight: normal;
-  color: var(--clr-primary);
+  color: var(--clr-surface);
   font-family: "Montserrat", sans-serif;
 }
 .btn__wrapper {
@@ -420,7 +425,7 @@ li {
 }
 
 .btn--delete {
-  color: var(--clr-primary);
+  color: var(--clr-surface);
 }
 
 .btn--delete:hover {
