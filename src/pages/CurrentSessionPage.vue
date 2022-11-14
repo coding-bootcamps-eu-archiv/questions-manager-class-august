@@ -223,11 +223,13 @@ li {
 }
 .header__open {
   color: rgb(94, 189, 94);
-  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: -10px;
 }
 .header__answered {
   color: salmon;
-  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: -10px;
 }
 .questions {
   display: flex;
