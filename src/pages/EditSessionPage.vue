@@ -161,7 +161,7 @@ export default {
   computed: {
     currentUrl() {
       let sessionUrl = window.location.href;
-      sessionUrl = sessionUrl.split("edit/").join("");
+      sessionUrl = sessionUrl.split("manage/edit/").join("session/");
       return sessionUrl;
     },
     filterAnswered() {
