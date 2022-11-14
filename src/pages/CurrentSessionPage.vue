@@ -369,6 +369,7 @@ li {
 .searchbar:focus-within {
   appearance: none;
   border: 2px solid hotpink;
+  border-radius: 2px;
 }
 .searchtext:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
