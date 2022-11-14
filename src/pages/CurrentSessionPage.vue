@@ -138,13 +138,11 @@ export default {
     },
     filterOpen() {
       return this.questions.filter((question) => question.open === true);
-
+    },
     sessionDateFormat() {
       return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
-
     },
   },
-
   methods: {
     async createNewQuestion() {
       if (this.newQuestion.length > 4) {
