@@ -349,15 +349,11 @@ export default {
 ul,
 li {
   all: unset;
-  margin: 0;
-  padding: 0;
 }
 
 .form__container {
   display: flex;
   flex-wrap: wrap;
-  margin: auto;
-  width: 100%;
   gap: 0.5rem;
 }
 .searchbar {
@@ -413,23 +409,24 @@ li {
 }
 .questions {
   display: flex;
-  max-width: 700px;
-  min-height: 78vh;
-  margin: auto;
-  padding: 0.75rem;
-  align-self: center;
   flex-direction: column;
+  align-self: center;
+
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 .questions__list {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
+
+.questions__list + .questions__list {
+  margin-top: 1rem;
+}
 .questions_element {
   display: flex;
   align-items: center;
-  width: calc(100% - 3.5px);
   background-color: var(--clr-dark-purple);
   border: 2px solid var(--clr-primary);
   box-shadow: 3.5px 3.5px 0px var(--clr-primary);

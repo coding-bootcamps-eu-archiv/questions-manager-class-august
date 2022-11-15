@@ -139,10 +139,10 @@ tbody tr {
 }
 
 .sessions {
-  margin: auto;
+  margin: 0 auto;
   max-width: 75ch;
   padding: 0 1rem;
-  min-height: 79vh;
+  margin-bottom: 2rem;
 }
 .sessions__list {
   border-collapse: collapse;

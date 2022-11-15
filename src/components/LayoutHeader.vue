@@ -42,8 +42,8 @@ export default {};
 header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-  height: 10vh;
+  margin-bottom: 5rem;
+  height: 20%;
 }
 .header__top {
   display: flex;

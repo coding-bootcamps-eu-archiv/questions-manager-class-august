@@ -89,11 +89,9 @@
         </svg>
       </div>
     </div>
-
     <div class="session__url" v-show="isAdmin">
       <input
         @focus="$event.target.select()"
-        @focusout="editTitle = !editTitle"
         type="text"
         name="session-url "
         id="session-url"
@@ -108,6 +106,7 @@
           })
         "
       />
+
       <button class="btn btn--copy" @click="copyUrl()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -171,7 +170,6 @@ export default {
         width: 170,
         color: "#6a1cc3",
         iconColor: "rgb(94, 189, 94)",
-        position: "center",
       });
     },
   },
@@ -181,6 +179,7 @@ export default {
 <style scoped>
 h2 {
   color: var(--clr-primary);
+  font-size: 2rem;
 }
 
 .subheader {
@@ -240,6 +239,10 @@ h2 {
 .session__title--edit:focus,
 .session__desc--edit:focus {
   border: 1px solid var(--clr-secondary);
+}
+
+#toast {
+  border: 1px solid black;
 }
 
 .edit-icon {

@@ -74,16 +74,13 @@ export default {
 
 <style scoped>
 .sessions {
-  margin: auto;
-  height: 100%;
+  margin: 0 auto;
   width: 100%;
-  max-width: 700px;
-  min-height: 80vh;
+  margin-bottom: 2rem;
 }
 .sessions__inputform {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
 }
 .buttons {
   grid-area: button;
@@ -130,8 +127,6 @@ export default {
   padding: 3rem;
   box-shadow: var(--clr-primary) 0px 2px 5px 0px,
     var(--clr-primary-inactive) 0px 1px 1px 0px;
-  cursor: pointer;
-  flex-grow: 100;
 }
 
 input {
@@ -146,14 +141,10 @@ input:focus-within {
 }
 
 ::placeholder {
-  font-family: "Source Sans Pro";
-  font-size: 1rem;
   color: var(--clr-primary-inactive);
 }
 
 label {
-  font-family: "Source Sans Pro";
-  font-size: 1rem;
   font-weight: 600;
 }
 </style>
