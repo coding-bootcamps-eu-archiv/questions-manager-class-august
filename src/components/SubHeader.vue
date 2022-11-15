@@ -1,6 +1,19 @@
 <template>
   <div class="subheader">
-    <h2>{{ subheader }}</h2>
+    <div class="subheader__wrapper">
+      <h2>{{ subheader }}</h2>
+      <button
+        class="btn btn--back"
+        v-show="isAdmin"
+        @click="
+          $router.push({
+            name: 'manage',
+          })
+        "
+      >
+        Back
+      </button>
+    </div>
     <div v-show="title" class="subheader__info">
       <p class="session__date">{{ date }}</p>
 
@@ -139,6 +152,10 @@ h2 {
   gap: 2rem;
   margin-bottom: 1rem;
 }
+.subheader__wrapper {
+  display: inline-flex;
+  justify-content: space-between;
+}
 .subheader__info {
   display: flex;
   flex-flow: column wrap;
@@ -157,13 +174,13 @@ h2 {
 }
 .wrapper {
   position: relative;
-  width: 413px;
+  width: 392px;
 }
 .session__title,
 .session__desc {
   word-wrap: break-word;
   height: min-content;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 0rem;
   padding-right: 3rem;
   width: 350px;
   word-break: break-all;
@@ -173,7 +190,7 @@ h2 {
 .session__desc--edit {
   all: unset;
   border: 1px solid var(--clr-primary-inactive);
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 0rem;
   padding-right: 3rem;
   width: 350px;
 }
@@ -203,7 +220,7 @@ h2 {
   display: inline-flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 0rem;
   max-width: 100%;
 
   overflow: hidden;
@@ -222,5 +239,11 @@ h2 {
 
 .btn {
   flex: 0 1 auto;
+}
+
+.btn--copy {
+}
+
+.btn--back {
 }
 </style>
