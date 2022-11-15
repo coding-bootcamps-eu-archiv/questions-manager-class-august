@@ -17,12 +17,20 @@
           v-model="description"
           placeholder="Description of your new session"
         />
-        <button
-          @click.prevent="AddSessionData(this.title, this.description)"
-          class="sessions__add-button"
-        >
-          Add Session
-        </button>
+        <div class="buttons">
+          <button
+            @click.prevent="AddSessionData(this.title, this.description)"
+            class="sessions__add-button"
+          >
+            Add Session
+          </button>
+          <button
+            @click.prevent="CancelSessionData(this.title, this.description)"
+            class="sessions__cancel-button"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </form>
   </section>
@@ -70,10 +78,14 @@ export default {
   flex-direction: column;
   padding: 0.5rem;
 }
-
-.sessions__add-button {
+.buttons {
   grid-area: button;
-  border: 1.75px solid var(--clr-primary);
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+.sessions__add-button,
+.sessions__cancel-button {
+  border: 2px solid var(--clr-primary);
   border-radius: 2px;
   background-color: var(--clr-surface);
   box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
@@ -89,13 +101,15 @@ export default {
   cursor: pointer;
 }
 
-.sessions__add-button:hover {
+.sessions__add-button:hover,
+.sessions__cancel-button:hover {
   background: var(--clr-primary);
   border: 1.75px solid var(--clr-primary);
   color: var(--clr-surface);
 }
 
-.sessions__add-button:active {
+.sessions__add-button:active,
+.sessions__cancel-button:active {
   box-shadow: none;
 }
 
