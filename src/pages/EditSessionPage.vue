@@ -2,13 +2,13 @@
   <section class="questions" id="questions">
     <SubHeader
       :subheader="headline"
-      :title="sessionTitle"
-      :description="sessionDesc"
+      :title="newSessionData.title"
+      :description="newSessionData.description"
       :date="sessionDateFormat"
+      :isAdmin="true"
+      @title-changed="titleChange"
+      @desc-changed="descChange"
     />
-    <h3 class="session__url">
-      <a class="url__link" :href="currentUrl">{{ currentUrl }}</a>
-    </h3>
     <form>
       <div class="form__container">
         <div class="searchbar">
@@ -173,20 +173,20 @@ export default {
       search: "",
       searchQuery: "",
       headline: "Current Session → Coaches",
-      sessionTitle: "",
-      sessionDesc: "",
-      sessionDate: "",
+      newSessionData: {
+        title: "",
+        description: "",
+        createdAt: null,
+        active: false,
+        id: this.$route.params.id,
+      },
     };
   },
   computed: {
-    currentUrl() {
-      let sessionUrl = window.location.href;
-      sessionUrl = sessionUrl.split("manage/edit/").join("session/");
-      return sessionUrl;
-    },
-
     sessionDateFormat() {
-      return this.dayJS(this.sessionDate).format("MMM-DD-YY HH:mm");
+      return this.dayJS(this.newSessionData.createdAt).format(
+        "MMM-DD-YY HH:mm"
+      );
     },
 
     filterOpen() {
@@ -206,6 +206,27 @@ export default {
     },
   },
   methods: {
+    async changeSessionData() {
+      console.log("go");
+      const response = await fetch(
+        process.env.VUE_APP_API_BASE_URL + "/sessions/" + this.$route.params.id,
+        {
+          method: "PUT",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(this.newSessionData),
+        }
+      );
+      return response;
+    },
+
+    titleChange(event) {
+      this.newSessionData.title = event;
+    },
+
+    descChange(event) {
+      this.newSessionData.description = event;
+    },
+
     searchQuestions(array) {
       this.sortQuestions(array);
       if (this.searchQuery.length > 0) {
@@ -261,9 +282,9 @@ export default {
       );
 
       this.data = await response.json();
-      this.sessionTitle = this.data.title;
-      this.sessionDesc = this.data.description;
-      this.sessionDate = this.data.date;
+      this.newSessionData.title = this.data.title;
+      this.newSessionData.description = this.data.description;
+      this.newSessionData.createdAt = this.data.createdAt;
     },
 
     sortQuestions(array) {
@@ -272,6 +293,18 @@ export default {
           return a.likes - b.likes;
         })
         .reverse();
+    },
+  },
+  watch: {
+    "newSessionData.title"(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.changeSessionData();
+      }
+    },
+    "newSessionData.description"(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.changeSessionData();
+      }
     },
   },
   async created() {
@@ -299,26 +332,7 @@ li {
   margin: 0;
   padding: 0;
 }
-.session__url {
-  all: unset;
-  font-size: 16px;
-  font-weight: 500;
-  color: hotpink;
-  text-align: center;
-  padding: 0.5rem 1.25rem;
-  border: 2px solid var(--clr-primary);
-  box-shadow: var(--clr-primary-inactive) 0px 1px 1px 0px;
-  background: var(--clr-surface);
-  border-radius: 2px;
-}
-.url__link {
-  text-decoration: none;
-  color: var(--clr-primary);
-}
-.url__link:hover {
-  text-decoration: underline;
-  color: hotpink;
-}
+
 .form__container {
   display: flex;
   flex-wrap: wrap;
