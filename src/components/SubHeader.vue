@@ -156,17 +156,6 @@ export default {
     copyUrl() {
       this.$refs.url.focus();
       document.execCommand("copy");
-      this.$swal.fire({
-        icon: "success",
-        title: "Copied",
-        timer: 1500,
-        showConfirmButton: false,
-        toast: true,
-        width: 170,
-        color: "#6a1cc3",
-        iconColor: "rgb(94, 189, 94)",
-        position: "center",
-      });
     },
   },
 };
