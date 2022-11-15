@@ -25,7 +25,11 @@
             Add Session
           </button>
           <button
-            @click.prevent="CancelSessionData(this.title, this.description)"
+            @click.prevent="
+              $router.push({
+                name: 'manage',
+              })
+            "
             class="sessions__cancel-button"
           >
             Cancel
