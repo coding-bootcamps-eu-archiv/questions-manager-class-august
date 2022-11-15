@@ -422,6 +422,7 @@ li {
 }
 
 .errorCountCharactersMsg {
+  position: absolute;
   color: hotpink;
   padding-top: 0.25rem;
 }
