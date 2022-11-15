@@ -207,7 +207,6 @@ export default {
   },
   methods: {
     async changeSessionData() {
-      console.log("go");
       const response = await fetch(
         process.env.VUE_APP_API_BASE_URL + "/sessions/" + this.$route.params.id,
         {

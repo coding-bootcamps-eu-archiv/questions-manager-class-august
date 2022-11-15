@@ -102,7 +102,27 @@
           })
         "
       />
-      <button class="btn btn--copy" @click="copyUrl()">Copy</button>
+      <button class="btn btn--copy" @click="copyUrl()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="26"
+          height="26"
+          fill="currentColor"
+          class="bi bi-clipboard-check"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+          />
+          <path
+            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
+          />
+          <path
+            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
+          />
+        </svg>
+      </button>
     </div>
   </div>
 </template>
@@ -242,8 +262,40 @@ h2 {
 }
 
 .btn--copy {
+  all: unset;
+  color: var(--clr-primary);
 }
 
 .btn--back {
+  all: unset;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  background: var(--clr-surface);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  box-shadow: 3.5px 3.5px 0px var(--clr-dark-purple);
+  border-radius: 2px;
+}
+.btn--back:hover {
+  all: unset;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-surface);
+  background: var(--clr-primary);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  box-shadow: 3.5px 3.5px 0px var(--clr-dark-purple);
+  border-radius: 2px;
+}
+.btn--back:active {
+  all: unset;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-surface);
+  background: var(--clr-primary);
+  border: 1.75px solid var(--clr-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
 }
 </style>
