@@ -224,7 +224,7 @@ tbody tr {
   padding: 0.5rem 1.25rem;
   border-radius: 2px;
   border: 1.75px solid var(--clr-primary);
-  box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
+  box-shadow: 3.5px 3.5px 0px var(--clr-dark-purple);
 }
 
 .btn--create-session:hover {

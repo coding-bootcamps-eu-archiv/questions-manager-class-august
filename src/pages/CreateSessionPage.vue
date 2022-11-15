@@ -89,18 +89,15 @@ export default {
 }
 .sessions__add-button,
 .sessions__cancel-button {
-  border: 2px solid var(--clr-primary);
-  border-radius: 2px;
-  background-color: var(--clr-surface);
-  box-shadow: 3.5px 3.5px 0px var(--clr-primary-inactive);
-  padding: 8px 20px;
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 600;
+  all: unset;
   font-size: 20px;
-  line-height: 20px;
-  text-align: center;
+  font-weight: 600;
   color: var(--clr-primary);
+  background-color: var(--clr-surface);
+  border: 2px solid var(--clr-primary);
+  box-shadow: 3.5px 3.5px 0px var(--clr-dark-purple);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
   margin-top: 1rem;
   cursor: pointer;
 }
@@ -108,7 +105,7 @@ export default {
 .sessions__add-button:hover,
 .sessions__cancel-button:hover {
   background: var(--clr-primary);
-  border: 1.75px solid var(--clr-primary);
+  border: 2px solid var(--clr-primary);
   color: var(--clr-surface);
 }
 
