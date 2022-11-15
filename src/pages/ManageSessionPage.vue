@@ -72,11 +72,31 @@ export default {
   },
   methods: {
     confirmDeleteSession(currentSession) {
-      const deleteMsg = `Do you really want to delete the session with all questions?
-      ${currentSession.title}`;
-      if (confirm(deleteMsg)) {
-        this.deleteSession(currentSession);
-      }
+      this.$swal
+        .fire({
+          title: `Do you really want to delete Session: ${currentSession.title}?`,
+          icon: "warning",
+          showDenyButton: true,
+          confirmButtonText: "Yes",
+          denyButtonText: "No",
+          position: "top",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.deleteSession(currentSession);
+            this.$swal.fire({
+              title: `Session: ${currentSession.title} is deleted!`,
+              position: "top",
+              icon: "info",
+            });
+          } else if (result.isDenied) {
+            this.$swal.fire({
+              title: "Session not deleted!",
+              position: "top",
+              icon: "info",
+            });
+          }
+        });
     },
     async deleteSession(currentSession) {
       const response = await fetch(

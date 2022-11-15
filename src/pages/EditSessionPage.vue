@@ -259,10 +259,31 @@ export default {
     },
 
     confirmDelete(question) {
-      const deleteMsg = `Do you really want to delete question: ${question.question}?`;
-      if (confirm(deleteMsg)) {
-        this.deleteQuestion(question);
-      }
+      this.$swal
+        .fire({
+          title: `Do you really want to delete the question: ${question.question}?`,
+          icon: "warning",
+          showDenyButton: true,
+          confirmButtonText: "Yes",
+          denyButtonText: "No",
+          position: "top",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.deleteQuestion(question);
+            this.$swal.fire({
+              title: `${question.question} is deleted!`,
+              position: "top",
+              icon: "info",
+            });
+          } else if (result.isDenied) {
+            this.$swal.fire({
+              title: "Question not deleted!",
+              position: "top",
+              icon: "info",
+            });
+          }
+        });
     },
 
     async deleteQuestion(question) {
