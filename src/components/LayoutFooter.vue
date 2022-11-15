@@ -8,13 +8,10 @@
 
 <style scoped>
 .footer {
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  max-width: 100%;
-  height: 10vh;
+  margin-top: auto;
   background-color: var(--clr-primary);
   color: var(--clr-surface);
 }

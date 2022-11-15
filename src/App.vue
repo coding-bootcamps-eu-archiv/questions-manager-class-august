@@ -1,7 +1,11 @@
 <template>
-  <LayoutHeader />
-  <router-view />
-  <LayoutFooter />
+  <div class="container">
+    <LayoutHeader />
+    <main>
+      <router-view />
+    </main>
+    <LayoutFooter />
+  </div>
 </template>
 
 <script>
@@ -35,14 +39,23 @@ html {
 
 html,
 body {
-  min-height: 100%;
+  height: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0.5rem;
+  max-width: 700px;
 }
 
 h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+label {
   font-family: "Montserrat", sans-serif;
   margin: 0;
 }

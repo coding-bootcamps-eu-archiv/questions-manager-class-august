@@ -246,12 +246,10 @@ li {
 }
 .questions {
   display: flex;
-  max-width: 700px;
-  min-height: 80vh;
+  align-self: center;
   flex-direction: column;
-  margin: auto;
-  padding: 0.75rem;
   gap: 3rem;
+  margin-bottom: 2rem;
 }
 .questions__list {
   display: flex;
