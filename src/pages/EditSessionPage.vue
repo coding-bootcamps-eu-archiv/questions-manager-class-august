@@ -466,6 +466,7 @@ li {
 
 .btn--delete:hover {
   color: hotpink;
+  cursor: pointer;
 }
 input[type="checkbox"] {
   visibility: hidden;
@@ -474,6 +475,7 @@ input[type="checkbox"] {
 input[type="checkbox"] + .open__label {
   display: inline-block;
   vertical-align: middle;
+  cursor: pointer;
   color: rgb(94, 189, 94);
 }
 input[type="checkbox"]:checked + .open__label {

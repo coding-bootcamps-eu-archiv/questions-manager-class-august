@@ -18,7 +18,10 @@
       <p class="session__date">{{ date }}</p>
 
       <div class="wrapper">
-        <div class="session__title" v-show="!editTitle">{{ title }}</div>
+        <div class="session__title" v-show="!editTitle">
+          {{ title }}
+        </div>
+
         <input
           type="text"
           :class="{
@@ -29,6 +32,7 @@
           :value="title"
           id="title"
           ref="titleInput"
+          @focusout="editTitle = !editTitle"
           @change="$emit(`titleChanged`, this.$refs.titleInput.value)"
         />
         <svg
@@ -62,6 +66,7 @@
           :value="description"
           id="description"
           ref="descInput"
+          @focusout="editDesc = !editDesc"
           @change="$emit(`descChanged`, this.$refs.descInput.value)"
         />
         <svg
@@ -88,6 +93,7 @@
     <div class="session__url" v-show="isAdmin">
       <input
         @focus="$event.target.select()"
+        @focusout="editTitle = !editTitle"
         type="text"
         name="session-url "
         id="session-url"
@@ -196,10 +202,9 @@ h2 {
 }
 
 .session__date {
-  font-size: 1rem;
-  font-style: italic;
+  font-size: 0.9rem;
   align-self: flex-start;
-  color: var(--clr-primary-inactive);
+  color: var(--clr-secondary);
   margin: 0;
   padding: 0;
 }
@@ -214,6 +219,7 @@ h2 {
   padding: 0.5rem 0rem;
   padding-right: 3rem;
   width: 350px;
+  border: 1px solid var(--clr-surface);
   word-break: break-all;
 }
 
@@ -233,7 +239,7 @@ h2 {
 }
 .session__title--edit:focus,
 .session__desc--edit:focus {
-  border: 2px solid var(--clr-secondary);
+  border: 1px solid var(--clr-secondary);
 }
 
 .edit-icon {
@@ -275,6 +281,7 @@ h2 {
 .btn--copy {
   all: unset;
   color: var(--clr-primary);
+  cursor: pointer;
 }
 
 .btn--back {
@@ -287,26 +294,16 @@ h2 {
   padding: 0.5rem 1.25rem;
   box-shadow: 3.5px 3.5px 0px var(--clr-dark-purple);
   border-radius: 2px;
+  cursor: pointer;
 }
 .btn--back:hover {
-  all: unset;
-  font-size: 16px;
-  font-weight: 600;
   color: var(--clr-surface);
   background: var(--clr-primary);
   border: 1.75px solid var(--clr-primary);
-  padding: 0.5rem 1.25rem;
   box-shadow: 3.5px 3.5px 0px var(--clr-dark-purple);
   border-radius: 2px;
 }
 .btn--back:active {
-  all: unset;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--clr-surface);
-  background: var(--clr-primary);
-  border: 1.75px solid var(--clr-primary);
-  padding: 0.5rem 1.25rem;
-  border-radius: 2px;
+  box-shadow: none;
 }
 </style>
