@@ -25,7 +25,6 @@
         </button>
       </div>
     </form>
-    {{ newSession }}
   </section>
 </template>
 
@@ -92,20 +91,12 @@ export default {
 
 .sessions__add-button:hover {
   background: var(--clr-primary);
+  border: 1.75px solid var(--clr-primary);
   color: var(--clr-surface);
-  border-radius: 2px;
 }
 
 .sessions__add-button:active {
-  outline: none;
   box-shadow: none;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--clr-surface);
-  background: var(--clr-primary);
-  border: 1.75px solid var(--clr-primary);
-  padding: 0.5rem 1.25rem;
-  border-radius: 2px;
 }
 
 .sessions__input-wrapper {
@@ -128,12 +119,12 @@ export default {
 input {
   padding: 1rem;
   background: var(--clr-surface);
-  border: 1.75px solid var(--clr-primary-inactive);
+  border: 2px solid var(--clr-primary-inactive);
 }
 
 input:focus-within {
   outline: none;
-  border: 1px solid var(--clr-primary);
+  border: 2px solid var(--clr-primary);
 }
 
 ::placeholder {
