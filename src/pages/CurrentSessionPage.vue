@@ -246,9 +246,10 @@ li {
 }
 .questions {
   display: flex;
-  margin: auto;
   max-width: 700px;
+  min-height: 80vh;
   flex-direction: column;
+  margin: auto;
   padding: 0.75rem;
   gap: 3rem;
 }
@@ -277,6 +278,7 @@ li {
 }
 .question__name {
   font-size: 2rem;
+  word-break: break-all;
   font-family: "Montserrat", sans-serif;
   color: var(--clr-surface);
 }

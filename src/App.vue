@@ -30,6 +30,11 @@ export default {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 h1,
 h2,
 h3,

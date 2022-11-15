@@ -42,7 +42,8 @@ export default {};
 header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 4.5rem;
+  margin-bottom: 1rem;
+  height: 10vh;
 }
 .header__top {
   display: flex;

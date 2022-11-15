@@ -63,7 +63,10 @@ export default {
 <style scoped>
 .sessions {
   margin: auto;
-  max-width: 100ch;
+  height: 100%;
+  width: 100%;
+  max-width: 700px;
+  min-height: 80vh;
 }
 .sessions__inputform {
   display: flex;

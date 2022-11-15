@@ -372,8 +372,6 @@ li {
   height: 1px;
   overflow: hidden;
   position: absolute;
-  white-space: nowrap;
-  width: 1px;
 }
 .magnifying {
   all: unset;
@@ -393,10 +391,12 @@ li {
   margin-bottom: -10px;
 }
 .questions {
-  padding: 0.75rem;
   display: flex;
-  margin: auto;
   max-width: 700px;
+  min-height: 78vh;
+  margin: auto;
+  padding: 0.75rem;
+  align-self: center;
   flex-direction: column;
   gap: 1.5rem;
 }
@@ -434,6 +434,7 @@ li {
   font-size: 2rem;
   font-family: "Montserrat", sans-serif;
   color: var(--clr-surface);
+  word-break: break-all;
 }
 .question__date {
   font-size: 0.75rem;
