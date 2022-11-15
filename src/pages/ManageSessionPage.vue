@@ -126,6 +126,7 @@ th {
   width: 100%;
   table-layout: fixed;
   text-align: left;
+  padding: 0;
 }
 
 tbody tr {
@@ -158,10 +159,10 @@ tbody tr {
 }
 
 .sessions__list th {
-  padding: 0.5rem 1rem 2rem 0.25rem;
+  padding: 1rem 0;
 }
 .sessions__list td {
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .sessions__title {
