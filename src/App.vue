@@ -29,6 +29,9 @@ export default {
   font-size: 14px;
   scroll-behavior: smooth;
 }
+html {
+  background-color: var(--clr-surface);
+}
 
 html,
 body {
