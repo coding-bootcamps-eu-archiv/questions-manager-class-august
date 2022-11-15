@@ -21,9 +21,6 @@
             {{ dayJS(session.createdAt).fromNow() }}
           </td>
           <td class="sessions__actions-element">
-            <router-link :to="{ name: 'edit', params: { id: session.id } }">
-              <button class="btn btn--edit"></button>
-            </router-link>
             <button
               @click="confirmDeleteSession(session)"
               class="btn btn--delete"
