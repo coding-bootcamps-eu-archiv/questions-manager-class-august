@@ -268,6 +268,7 @@ li {
 }
 .question__wrapper {
   display: flex;
+  overflow-wrap: anywhere;
   flex-direction: column;
   align-items: flex-start;
   padding: 0.5rem 0.5rem 3.5rem 1.75rem;
@@ -276,7 +277,6 @@ li {
 }
 .question__name {
   font-size: 2rem;
-  word-break: break-all;
   font-family: "Montserrat", sans-serif;
   color: var(--clr-surface);
 }
