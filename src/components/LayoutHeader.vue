@@ -87,4 +87,13 @@ header {
   fill: var(--clr-secondary);
   top: 1rem;
 }
+
+@media only screen and (max-width: 576px) {
+  .header__top h1 {
+    font-size: 1.5rem;
+  }
+  .header__title--slogan {
+    font-size: 0.75rem;
+  }
+}
 </style>

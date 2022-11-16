@@ -165,6 +165,7 @@ export default {
         icon: "success",
         title: "Copied",
         timer: 1500,
+        position: "center",
         showConfirmButton: false,
         toast: true,
         width: 170,
@@ -239,10 +240,6 @@ h2 {
 .session__title--edit:focus,
 .session__desc--edit:focus {
   border: 1px solid var(--clr-secondary);
-}
-
-#toast {
-  border: 1px solid black;
 }
 
 .edit-icon {

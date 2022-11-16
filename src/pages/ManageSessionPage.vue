@@ -10,12 +10,11 @@
       </thead>
       <tbody>
         <tr v-for="session in sessions" :key="session.id" class="sessions__row">
-          <td class="sessions__title-element">
-            <h3
-              @click="
-                $router.push({ name: 'edit', params: { id: session.id } })
-              "
-            >
+          <td
+            class="sessions__title-element"
+            @click="$router.push({ name: 'edit', params: { id: session.id } })"
+          >
+            <h3>
               {{ session.title }}
             </h3>
             {{ dayJS(session.createdAt).fromNow() }}
